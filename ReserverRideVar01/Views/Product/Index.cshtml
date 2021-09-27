@@ -1,0 +1,84 @@
+﻿@model List<ReserverRideVar01.ViewModel.ProductViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].product.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].product.ProductQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].product.ProductPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].product.ProductCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].product.ProductPhoto)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model[0].product.Store.StoreAddress)*@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            
+            <div class="col-lg-6 col-xl-6 d-flex">
+                <div class="pricing-entry rounded d-flex ftco-animate">
+                    <div class="img" style="background-image: url(data:image;base64,@Convert.ToBase64String(item.product.ProductPhoto));"></div>
+                    <div class="desc p-4">
+                        <div class="d-md-flex text align-items-start">
+                            <h3><span>@Html.DisplayFor(modelItem => item.ProductName)</span></h3>
+                            <span class="price">@Html.DisplayFor(modelItem => item.ProductPrice)</span>
+                        </div>
+                        <div class="d-block">
+                            <p>@Html.DisplayFor(modelItem => item.ProductDescription)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductCost)
+                </td>
+                <td>
+                    @if (item != null)
+                    {
+                        string imageSource = $"data:image;base64,{Convert.ToBase64String(item.product.ProductPhoto)}";
+
+                        <img src="@imageSource" width="200" height="150" />
+                    }
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.product.Store.StoreAddress)*@
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
