@@ -17,7 +17,6 @@ namespace ReserverRideVar01.Models
         [MaxLength(300)]
         [Column(TypeName = "nvarchar")]
         public string ProductDescription { get; set; }
-
         public byte[] ProductPhoto { get; set; }
     }
 }

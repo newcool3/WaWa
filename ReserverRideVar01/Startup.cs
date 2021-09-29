@@ -29,6 +29,7 @@ namespace ReserverRideVar01
             services.AddDbContext<MSITDbcontext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("MSITConnectionString"));
             });
+            services.AddSession();
 
         }
 
@@ -49,6 +50,7 @@ namespace ReserverRideVar01
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 

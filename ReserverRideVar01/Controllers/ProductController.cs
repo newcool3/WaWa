@@ -18,7 +18,7 @@ namespace ReserverRideVar01.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public IActionResult List()
         {
             var products = _db.Products;
             List<ProductViewModel> list = new List<ProductViewModel>();
@@ -50,7 +50,7 @@ namespace ReserverRideVar01.Controllers
             _db.Products.Add(prod);
             _db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
 
         public ActionResult Edit(int? id)
@@ -86,7 +86,7 @@ namespace ReserverRideVar01.Controllers
             prod.ProductDescription = p.ProductDescription;
             _db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
         public ActionResult Delete(int? id)
         {
@@ -99,7 +99,7 @@ namespace ReserverRideVar01.Controllers
                     _db.SaveChanges();
                 }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
     }
 }

@@ -17,6 +17,8 @@ namespace ReserverRideVar01.DbContext
         public DbSet<Store> Stores { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Member> Members { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+
 
     }
 }

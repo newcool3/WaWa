@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ReserverRideVar01.ViewModels.CShoppingCartItemViewModel>
+@{
+    ViewData["Title"] = "ViewCart";
+}
+
+<h1>ViewCart</h1>
+
+<table class="table">
+    <tr>
+        <th>
+            序
+        </th>
+        <th>
+            產品
+        </th>
+        <th>
+            購買數量
+        </th>
+        <th>
+            價格
+        </th>
+        <th>
+            小計
+        </th>
+        <th></th>
+    </tr>
+
+    @{
+        int count = 0;
+        decimal payment = 0;
+        foreach (var item in Model)
+        {
+            count++;
+            payment += item.小計;
+            <tr>
+                <td>
+                    @count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.product.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.小計)
+                </td>
+                <td>
+                    @Html.ActionLink("變更數量", "Edit", new { /* id=item.PrimaryKey */ })
+
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+<li>應付金額：@payment</li>
