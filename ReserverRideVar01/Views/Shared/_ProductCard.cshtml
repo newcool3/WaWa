@@ -1,0 +1,28 @@
+﻿@using ReserverRideVar01.Models;
+@model IEnumerable<Product>
+
+<div class="row d-flex">
+    @foreach (Product product in Model)
+    {
+        <div class="col-md-4 d-flex">
+            <div class="blog-entry align-self-stretch">
+                <a href="blog-single.html" class="block-20 rounded" style="background-image: url(data:image;base64,@Convert.ToBase64String(product.ProductPhoto));">
+                </a>
+                <div class="text mt-3">
+                    <div class="meta mb-2">
+                        <div><a href="#">Oct. 30, 2019</a></div>
+                        <div><a href="#">Admin</a></div>
+                        <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                    </div>
+                    <h3 class="heading">
+                        <a href="#">@Html.DisplayFor(modelItem => product.ProductName)</a>
+                    </h3>
+                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                    <a>
+                        @Html.ActionLink("加入購物車", "AddToCart", "Shopping", new { id = product.ProductId }, new { @class = "btn btn-secondary rounded" })
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

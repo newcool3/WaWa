@@ -9,41 +9,45 @@ namespace ReserverRideVar01.ViewModel
 {
     public class ProductViewModel
     {
-        public Product product { get; set; }
-        public ProductViewModel()
-        {
-            this.product = new Product();
-        }
+        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Island> Islands { get; set; }
+        //public Product product { get; set; }
+        //public ProductViewModel()
+        //{
+        //    this.product = new Product();
+        //}
         public int ProductId 
         {
-            get { return this.product.ProductId; }
-            set { this.product.ProductId = value; } 
+            get { return this.ProductId; }
+            set { this.ProductId = value; } 
         }
         public string ProductName
         {
-            get { return this.product.ProductName; }
-            set { this.product.ProductName = value; }
+            get { return this.ProductName; }
+            set { this.ProductName = value; }
         }
         public int ProductQty
         {
-            get { return this.product.ProductQty; }
-            set { this.product.ProductQty = value; }
+            get { return this.ProductQty; }
+            set { this.ProductQty = value; }
         }
         public int ProductPrice
         {
-            get { return this.product.ProductPrice; }
-            set { this.product.ProductPrice = value; }
+            get { return this.ProductPrice; }
+            set { this.ProductPrice = value; }
         }
         public int ProductCost
         {
-            get { return this.product.ProductCost; }
-            set { this.product.ProductCost = value; }
+            get { return this.ProductCost; }
+            set { this.ProductCost = value; }
         }
         public string ProductDescription
         {
-            get { return this.product.ProductDescription; }
-            set { this.product.ProductDescription = value; }
+            get { return this.ProductDescription; }
+            set { this.ProductDescription = value; }
         }
         public IFormFile ProductPhoto { get; set; }
+        public int IslandId { get; set; }
+        public virtual Island Island { get; set; }
     }
 }

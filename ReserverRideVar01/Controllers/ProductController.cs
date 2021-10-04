@@ -2,6 +2,7 @@
 using ReserverRideVar01.DbContext;
 using ReserverRideVar01.Models;
 using ReserverRideVar01.ViewModel;
+using ReserverRideVar01.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +19,72 @@ namespace ReserverRideVar01.Controllers
             _db = db;
         }
 
-        public IActionResult List()
+        private List<Product> GetProduct()
         {
+            List<Product> product = new List<Product>();
             var products = _db.Products;
-            List<ProductViewModel> list = new List<ProductViewModel>();
             foreach (var item in products)
             {
-                list.Add(new ProductViewModel() { product = item });
+                product.Add(new Product()
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ProductCost = item.ProductCost,
+                    ProductDescription = item.ProductDescription,
+                    ProductPrice = item.ProductPrice,
+                    ProductPhoto = item.ProductPhoto,
+                    ProductQty = item.ProductQty
+                });
             }
-            return View(list);
+            return product;
         }
+        private List<Product> GetProductUsingId(int? id)
+        {
+            List<Product> product = new List<Product>();
+            var products = _db.Products.Where(i => i.IslandId == id);
+            foreach (var item in products)
+            {
+                product.Add(new Product()
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ProductCost = item.ProductCost,
+                    ProductDescription = item.ProductDescription,
+                    ProductPrice = item.ProductPrice,
+                    ProductPhoto = item.ProductPhoto,
+                    ProductQty = item.ProductQty
+                });
+            }
+            return product;
+        }
+        private List<Island> GetIsland()
+        {
+            List<Island> island = new List<Island>();
+            var islands = _db.Island;
+            foreach (var item in islands)
+            {
+                island.Add(new Island() {
+                    IslandId = item.IslandId,
+                    IslandName = item.IslandName
+                });
+            }
+            return island;
+        }
+        public IActionResult List()
+        {
+            ProductViewModel productView = new ProductViewModel();
+
+            productView.Products = GetProduct();
+            productView.Islands = GetIsland();
+            return View(productView);
+            
+        }
+        public IActionResult index(int? id)
+        {
+           var products = _db.Products.Where(i => i.IslandId == id);
+            return PartialView("_ProductCard", products);
+        }
+        
         public ActionResult create()
         {
             return View();
@@ -47,6 +104,7 @@ namespace ReserverRideVar01.Controllers
             prod.ProductCost = p.ProductCost;
             prod.ProductQty = p.ProductQty;
             prod.ProductDescription = p.ProductDescription;
+            prod.IslandId = p.IslandId;
             _db.Products.Add(prod);
             _db.SaveChanges();
 
@@ -84,6 +142,7 @@ namespace ReserverRideVar01.Controllers
             prod.ProductCost = p.ProductCost;
             prod.ProductQty = p.ProductQty;
             prod.ProductDescription = p.ProductDescription;
+            prod.IslandId = p.IslandId;
             _db.SaveChanges();
 
             return RedirectToAction("List");
