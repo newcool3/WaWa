@@ -14,6 +14,7 @@ namespace ReserverRideVar01.Models
 
         public int IslandId { get; set; }
         public string IslandName { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
         //public virtual ICollection<Store> Stores { get; set; }
     }

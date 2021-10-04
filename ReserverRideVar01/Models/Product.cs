@@ -18,5 +18,7 @@ namespace ReserverRideVar01.Models
         [Column(TypeName = "nvarchar")]
         public string ProductDescription { get; set; }
         public byte[] ProductPhoto { get; set; }
+        public int IslandId { get; set; }
+        public virtual Island Island { get; set; }//relate to Island table
     }
 }
