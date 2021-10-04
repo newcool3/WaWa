@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Pay";
+}
+
+<h1>付款頁面</h1>
+
+<table class="table">
+    <form name="ezPay" method="post" action="https://cpayment.ezpay.com.tw/MPG/mpg_gateway">
+        <input type="hidden" name="MerchantID" value=@ViewBag.MerchantID />
+        <input type="hidden" name="Version" value="1.0" />
+        <input type="hidden" name="TradeInfo" value=@ViewBag.TradeInfo />
+        <input type="hidden" name="TradeSha" value=@ViewBag.TradeSha /><br />付款時間 :
+        <input type="text" name="TimeStamp" value=@ViewBag.TimeStamp readonly unselectable="on" /><br />付款號碼 :
+        <input type="text" name="MerchantOrderNo" value=@ViewBag.MerchantOrderNo readonly unselectable="on" /><br />付款金額 :
+        <input type="text" name="Amt" value=@ViewBag.Amt readonly unselectable="on" /><br />付款項目 :
+        <input type="text" name="ItemDesc" value=@ViewBag.ItemDesc readonly unselectable="on" /><br />
+        <input type="submit" value="Submit" />
+    </form>
+</table>

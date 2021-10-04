@@ -49,8 +49,6 @@
                     @Html.DisplayFor(modelItem => item.小計)
                 </td>
                 <td>
-                    @Html.ActionLink("變更數量", "Edit", new { /* id=item.PrimaryKey */ })
-
                 </td>
             </tr>
         }
@@ -58,3 +56,5 @@
 
 </table>
 <li>應付金額：@payment</li>
+@Html.ActionLink("付款", "pay", "pay", new { payment = @payment }, null)
+
