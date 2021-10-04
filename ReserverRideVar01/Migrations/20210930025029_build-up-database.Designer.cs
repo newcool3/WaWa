@@ -10,8 +10,8 @@ using ReserverRideVar01.DbContext;
 namespace ReserverRideVar01.Migrations
 {
     [DbContext(typeof(MSITDbcontext))]
-    [Migration("20210929031423_add-shoppingCart-table")]
-    partial class addshoppingCarttable
+    [Migration("20210930025029_build-up-database")]
+    partial class buildupdatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,6 +70,9 @@ namespace ReserverRideVar01.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("IslandId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductCost")
                         .HasColumnType("int");
 
@@ -90,6 +93,8 @@ namespace ReserverRideVar01.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ProductId");
+
+                    b.HasIndex("IslandId");
 
                     b.ToTable("Products");
                 });
@@ -146,6 +151,22 @@ namespace ReserverRideVar01.Migrations
                     b.HasKey("StoreId");
 
                     b.ToTable("Stores");
+                });
+
+            modelBuilder.Entity("ReserverRideVar01.Models.Product", b =>
+                {
+                    b.HasOne("ReserverRideVar01.Models.Island", "Island")
+                        .WithMany("Products")
+                        .HasForeignKey("IslandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Island");
+                });
+
+            modelBuilder.Entity("ReserverRideVar01.Models.Island", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
