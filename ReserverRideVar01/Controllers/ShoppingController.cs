@@ -13,9 +13,9 @@ namespace ReserverRideVar01.Controllers
 {
     public class ShoppingController : Controller
     {
-        MSITDbcontext _db;
+        MSITDbContext _db;
 
-        public ShoppingController(MSITDbcontext db)
+        public ShoppingController(MSITDbContext db)
         {
             _db = db;
         }

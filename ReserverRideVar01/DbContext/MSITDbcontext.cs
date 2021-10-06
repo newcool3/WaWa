@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace ReserverRideVar01.DbContext
 {
-    public class MSITDbcontext : Microsoft.EntityFrameworkCore.DbContext
+    public class MSITDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        public MSITDbcontext()
+        public MSITDbContext()
         {
         }
 
-        public MSITDbcontext(DbContextOptions<MSITDbcontext> options): base(options) { }
+        public MSITDbContext(DbContextOptions<MSITDbContext> options): base(options) { }
 
         public DbSet<Island> Island { get; set; }
         public DbSet<Store> Stores { get; set; }

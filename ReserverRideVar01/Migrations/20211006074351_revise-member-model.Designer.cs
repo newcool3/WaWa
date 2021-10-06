@@ -10,8 +10,8 @@ using ReserverRideVar01.DbContext;
 namespace ReserverRideVar01.Migrations
 {
     [DbContext(typeof(MSITDbContext))]
-    [Migration("20210930025029_build-up-database")]
-    partial class buildupdatabase
+    [Migration("20211006074351_revise-member-model")]
+    partial class revisemembermodel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,9 @@ namespace ReserverRideVar01.Migrations
                     b.Property<string>("IslandName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("IslandPhoto")
+                        .HasColumnType("varbinary(max)");
+
                     b.HasKey("IslandId");
 
                     b.ToTable("Island");
@@ -38,27 +41,60 @@ namespace ReserverRideVar01.Migrations
 
             modelBuilder.Entity("ReserverRideVar01.Models.Member", b =>
                 {
-                    b.Property<int>("MemberId")
+                    b.Property<int>("MemberID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("MemberAddress")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("MemberBirthday")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("MemberCreateDate")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("MemberEmail")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("MemberEnable")
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<DateTime>("MemberModifyDate")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("MemberName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("MemberNumberID")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
 
                     b.Property<string>("MemberPassword")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MemberPhone")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
-                    b.HasKey("MemberId");
+                    b.Property<byte[]>("MemberPhoto")
+                        .HasColumnType("varbinary");
+
+                    b.Property<int>("MemberType")
+                        .HasColumnType("int");
+
+                    b.HasKey("MemberID");
 
                     b.ToTable("Members");
                 });
