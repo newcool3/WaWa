@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ReserverRideVar01.DbContext;
 using ReserverRideVar01.Models;
 using ReserverRideVar01.ViewModel;
@@ -12,9 +13,9 @@ namespace ReserverRideVar01.Controllers
 {
     public class ProductController : Controller
     {
-        MSITDbcontext _db;
+        MSITDbContext _db;
 
-        public ProductController(MSITDbcontext db)
+        public ProductController(MSITDbContext db)
         {
             _db = db;
         }
@@ -38,25 +39,7 @@ namespace ReserverRideVar01.Controllers
             }
             return product;
         }
-        private List<Product> GetProductUsingId(int? id)
-        {
-            List<Product> product = new List<Product>();
-            var products = _db.Products.Where(i => i.IslandId == id);
-            foreach (var item in products)
-            {
-                product.Add(new Product()
-                {
-                    ProductId = item.ProductId,
-                    ProductName = item.ProductName,
-                    ProductCost = item.ProductCost,
-                    ProductDescription = item.ProductDescription,
-                    ProductPrice = item.ProductPrice,
-                    ProductPhoto = item.ProductPhoto,
-                    ProductQty = item.ProductQty
-                });
-            }
-            return product;
-        }
+        
         private List<Island> GetIsland()
         {
             List<Island> island = new List<Island>();
@@ -65,7 +48,8 @@ namespace ReserverRideVar01.Controllers
             {
                 island.Add(new Island() {
                     IslandId = item.IslandId,
-                    IslandName = item.IslandName
+                    IslandName = item.IslandName,
+                    IslandPhoto = item.IslandPhoto
                 });
             }
             return island;
@@ -74,6 +58,8 @@ namespace ReserverRideVar01.Controllers
         {
             ProductViewModel productView = new ProductViewModel();
 
+            //var product = _db.Products.Include(i => i.Island).ToList();
+
             productView.Products = GetProduct();
             productView.Islands = GetIsland();
             return View(productView);
@@ -81,7 +67,10 @@ namespace ReserverRideVar01.Controllers
         }
         public IActionResult index(int? id)
         {
-           var products = _db.Products.Where(i => i.IslandId == id);
+            //MSITDbContext db = new MSITDbContext();
+            //Product products = db.Products.Where(i => i.IslandId == id);
+
+            var products = _db.Products.Where(i => i.IslandId == id);
             return PartialView("_ProductCard", products);
         }
         
@@ -90,7 +79,7 @@ namespace ReserverRideVar01.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult create(ProductViewModel p)
+        public ActionResult create(ProductCreateEditViewModel p)
         {
             Product prod = new Product();
             if (p.ProductPhoto != null)
@@ -127,9 +116,11 @@ namespace ReserverRideVar01.Controllers
 
         }
         [HttpPost]
-        public ActionResult Edit(ProductViewModel p)
+        public ActionResult Edit(ProductCreateEditViewModel p)
         {
-            Product prod = _db.Products.FirstOrDefault(i => i.ProductId == p.ProductId);
+            //MSITDbContext db = new MSITDbContext();
+            Product prod = (new MSITDbContext()).Products.FirstOrDefault(i => i.IslandId == p.ProductId);
+            //Product prod = _db.Products.FirstOrDefault(i => i.ProductId == p.ProductId);
             if (p.ProductPhoto != null)
             {
                 using var fileStream = p.ProductPhoto.OpenReadStream();
