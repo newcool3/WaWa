@@ -26,7 +26,7 @@ namespace ReserverRideVar01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<MSITDbcontext>(options => {
+            services.AddDbContext<MSITDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("MSITConnectionString"));
             });
             services.AddSession();

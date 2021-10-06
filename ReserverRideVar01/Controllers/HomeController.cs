@@ -16,10 +16,12 @@ namespace ReserverRideVar01.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        MSITDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MSITDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         public IActionResult Login()
@@ -29,9 +31,8 @@ namespace ReserverRideVar01.Controllers
         [HttpPost]
         public IActionResult Login(CLoginViewModel model)
         {
-            MSITDbcontext db = new MSITDbcontext();
-            Member mem = db.Members.FirstOrDefault(
-               c => c.MemberName.Equals(model.txtAccount) && c.MemberPassword.Equals(model.txtPassword));
+            Member mem = _db.Members.FirstOrDefault(
+               c => c.MemberEmail.Equals(model.txtAccount) && c.MemberPassword.Equals(model.txtPassword));
 
             if (mem != null && mem.MemberPassword.Equals(model.txtPassword))
             {
