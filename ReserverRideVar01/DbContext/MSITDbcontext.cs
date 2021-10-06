@@ -10,6 +10,9 @@ namespace ReserverRideVar01.DbContext
 {
     public class MSITDbcontext : Microsoft.EntityFrameworkCore.DbContext
     {
+        public MSITDbcontext()
+        {
+        }
 
         public MSITDbcontext(DbContextOptions<MSITDbcontext> options): base(options) { }
 
