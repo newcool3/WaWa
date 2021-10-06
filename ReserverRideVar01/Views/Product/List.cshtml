@@ -10,14 +10,12 @@
 </p>
 
 <div class="container">
-    <input type="button" id="button" class="btn btn-primary" value=1 />
     <div class="row">
-        @foreach (Island island in Model.Islands)
+        @foreach (var island in Model.Islands)
         {
-            <div class="col-lg-6 col-xl-4 d-flex" style="height:100px;">
-                <div class="pricing-entry rounded d-flex ftco-animate" style="height:120px;">
-                    @*@Html.ActionLink(island.IslandName, "List", "Product", new { id = island.IslandId }, null)*@
-                    <a value=@island.IslandId id=@island.IslandName class="img" style="background-image: url(https://images-giftu.azureedge.net/ProdScenarios/Filter/20210105180952393733.webp); width: 350px;"></a>
+            <div class="col-lg-auto col-xl-4 d-flex" style="height:150px;">
+                <div class="rounded d-flex ftco-animate">
+                    <a value=@island.IslandId id=@island.IslandName class="img" style="background-image: url(data:image;base64,@Convert.ToBase64String(island.IslandPhoto)); width: 350px; height: 120px"></a>
                 </div>
             </div>
         }
