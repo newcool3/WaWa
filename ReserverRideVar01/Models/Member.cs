@@ -62,5 +62,7 @@ namespace ReserverRideVar01.Models
         [MaxLength(50)]//最大長度
         [Column(TypeName = "nvarchar")]
         public string MemberEmail { get; set; }
+        [MaxLength(50)]
+        public string Role { get; set; }
     }
 }
