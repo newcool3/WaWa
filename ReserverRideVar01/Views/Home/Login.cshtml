@@ -9,7 +9,7 @@
 
         <div class="form-group">
             <div class="col-md-1">
-                帳號 ( 註冊時間填寫的郵件 )
+                帳號
                 @Html.TextBox("txtAccount", "",
                     new { htmlAttributes = new { @class = "form-control" } })
             </div>
@@ -23,8 +23,61 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-0 col-md-1">
-                <input type="submit" value="登入" class="btn btn-default" />
+                <input id="button" value="登入" class="btn btn-primary" />
             </div>
         </div>
     </div>
+}
+
+
+
+@section Scripts{
+    <script>
+
+        $("#button").click(function () {
+            var model = {
+                "txtAccount": $("#txtAccount").val(),
+                "txtPassword": $("#txtPassword").val()
+            }
+             $.ajax({
+                url: '@Url.Action("Authenticate", "home")',
+                type: 'post',
+                data: JSON.stringify(model),
+                contentType: 'application/json;',
+                dataType: 'json',
+                 success: function (data) {
+                    localStorage.setItem("token", data.token);
+                    localStorage.setItem("userRole", data.user.role)
+                    return;// return 葉面
+                },
+                 error: function (data) {
+                    alert("error!");
+                }
+            });
+
+            var token = localStorage.getItem("token");
+            var userRole = localStorage.getItem("userRole");
+            var headers = {};
+            if (token) {
+                headers.Authorization = 'Bearer ' + token;
+            }
+            if (userRole == "manager") {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("index", "admin", "admin")',
+                    headers: headers
+                }).done(function (data) {
+                    divToUpdate.innerHTML = data;
+                });
+            }
+            else {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("index", "home")',
+                    headers: headers
+                }).done(function (data) {
+                });
+            }
+        });
+    </script>
 }

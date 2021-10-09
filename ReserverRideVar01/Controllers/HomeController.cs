@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using JWT.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ReserverRideVar01.DbContext;
@@ -45,12 +47,33 @@ namespace ReserverRideVar01.Controllers
 
         public IActionResult Index()
         {
-            if (!HttpContext.Session.Keys.Contains(Dictionary.SK_LOGIN_USER))
-                return RedirectToAction("Login");
-            string json = HttpContext.Session.GetString(Dictionary.SK_LOGIN_USER);
-            Member user = JsonSerializer.Deserialize<Member>(json);
-            ViewBag.USERNAME = user.MemberName;
+            
+            //if (!HttpContext.Session.Keys.Contains(Dictionary.SK_LOGIN_USER))
+            //    return RedirectToAction("Login");
+            //string json = HttpContext.Session.GetString(Dictionary.SK_LOGIN_USER);
+            //Member user = JsonSerializer.Deserialize<Member>(json);
+            //ViewBag.USERNAME = user.MemberName;
             return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult<dynamic> Authenticate([FromBody] CLoginViewModel model)
+        {
+            //var user = UserRepository.Get(model.Username, model.Password);
+            var user = _db.Members.FirstOrDefault(c => c.MemberEmail.Equals(model.txtAccount) && c.MemberPassword.Equals(model.txtPassword));
+
+            if (user == null)
+                return NotFound(new { message = "User or password invalid" });
+
+            var token = TokenService.CreateToken(user);
+            user.MemberPassword = "";
+            return new
+            {
+                user = user,
+                token = token
+            };
+
         }
 
         public IActionResult Privacy()
