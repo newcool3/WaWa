@@ -1,4 +1,5 @@
 using JWT.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,21 +35,15 @@ namespace ReserverRideVar01
                 options.UseSqlServer(Configuration.GetConnectionString("MSITConnectionString"));
             });
             services.AddSession();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
+            
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Settings.Issuer,
-                    ValidAudience = Settings.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.Secret))
-                };
-            });
-
+                    options.Cookie.Name = "MSIT04";
+                    options.ExpireTimeSpan = TimeSpan.FromHours(2);
+                    options.LoginPath = "/admin/admin/login";  // if the cookie auth fails, go to this url
+                    options.AccessDeniedPath = "/admin/admin/deined";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,7 +75,7 @@ namespace ReserverRideVar01
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "areas",
-                    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=admin}/{action=index}/{id?}");
             });
         }
     }
