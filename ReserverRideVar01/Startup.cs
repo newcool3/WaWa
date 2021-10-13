@@ -1,20 +1,12 @@
-using JWT.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using ReserverRideVar01.DbContext;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReserverRideVar01
 {
@@ -42,7 +34,7 @@ namespace ReserverRideVar01
                     options.Cookie.Name = "MSIT04";
                     options.ExpireTimeSpan = TimeSpan.FromHours(2);
                     options.LoginPath = "/admin/admin/login";  // if the cookie auth fails, go to this url
-                    options.AccessDeniedPath = "/admin/admin/deined";
+                    options.AccessDeniedPath = "/admin/admin/deined"; // if the access deined, go to this url
                 });
         }
 
@@ -71,11 +63,12 @@ namespace ReserverRideVar01
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "admin",
+                    pattern: "{area:exists}/{controller=admin}/{action=index}/{id?}");
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapControllerRoute(
-                    name: "areas",
-                    pattern: "{area:exists}/{controller=admin}/{action=index}/{id?}");
+                
             });
         }
     }

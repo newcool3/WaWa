@@ -1,7 +1,7 @@
 ﻿@model ReserverRideVar01.Models.Island
 
 @{ ViewData["Title"] = "Index";
-                Layout = "~/areas/admin/Views/Shared/_AdminLayout.cshtml"; }
+    Layout = "~/areas/admin/Views/Shared/_AdminLayout.cshtml"; }
 
 
 <div class="right_col" role="main">
@@ -20,7 +20,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-label-left input_mask" , @area = "admin", @controller = "island", @action = "create" , @enctype = "multipart/form-data" }))
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-label-left input_mask", @area = "admin", @controller = "island", @action = "edit", @enctype = "multipart/form-data" }))
                         {
                             @Html.AntiForgeryToken()
 
@@ -29,7 +29,7 @@
                                     外島名稱 <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    @Html.TextBox("IslandName", "", new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+                                    @Html.TextBox("IslandName", Model.IslandName, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
                                     @Html.ValidationMessageFor(model => model.IslandName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
