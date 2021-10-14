@@ -1,60 +1,85 @@
 ﻿@model IEnumerable<ReserverRideVar01.ViewModels.CShoppingCartItemViewModel>
 @{
     ViewData["Title"] = "ViewCart";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
 }
 
-<h1>ViewCart</h1>
+<h1>購物車</h1>
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                    <tr class="headings">
+                                        <th class="column-title">產品名稱 </th>
+                                        <th class="column-title">數量 </th>
+                                        <th class="column-title">價格</th>
+                                        <th class="column-title">小記</th>
+                                        <th class="column-title">產品照片</th>
+                                        <th class="column-title no-link last">
+                                            <span class="nobr">Action</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int count = 0;
+                                        decimal payment = 0;
 
-<table class="table">
-    <tr>
-        <th>
-            序
-        </th>
-        <th>
-            產品
-        </th>
-        <th>
-            購買數量
-        </th>
-        <th>
-            價格
-        </th>
-        <th>
-            小計
-        </th>
-        <th></th>
-    </tr>
+                                        @foreach (var item in Model)
+                                        {
+                                            count++;
+                                            payment += item.小計;
+                                            <tr class="even pointer">
+                                                <td class=" ">@item.product.ProductName</td>
+                                                <td class=" ">@item.count</td>
+                                                <td class=" ">@item.price</td>
+                                                <td class=" ">@item.小計</td>
+                                                @if (@item.product.ProductPhoto != null)
+                                                {
+                                                    <td><img src="data:image;base64,@Convert.ToBase64String(item.product.ProductPhoto)" width="200" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td class=" "></td>
+                                                }
+                                                <td class=" last">
+                                                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    <tr class="even pointer">
+                                        <td class=" ">總額:</td>
+                                        <td class=" "></td>
+                                        <td class=" "></td>
+                                        <td class=" ">@payment</td>
+                                        <td class=""></td>
+                                        <td class="">
+                                            @Html.ActionLink("付款", "pay", "pay", new { payment = @payment }, new { @class = "btn btn-secondary rounded" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    @{
-        int count = 0;
-        decimal payment = 0;
-        foreach (var item in Model)
-        {
-            count++;
-            payment += item.小計;
-            <tr>
-                <td>
-                    @count
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.product.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.count)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.小計)
-                </td>
-                <td>
-                </td>
-            </tr>
-        }
-    }
 
-</table>
-<li>應付金額：@payment</li>
-@Html.ActionLink("付款", "pay", "pay", new { payment = @payment }, null)
 
