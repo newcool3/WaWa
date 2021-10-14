@@ -67,12 +67,12 @@ namespace ReserverRideVar01.Areas.admin.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("List", "product");
+                return RedirectToAction("Index");
             }
             Island island = _db.Island.FirstOrDefault(i => i.IslandId == id);
             if (island == null)
             {
-                return RedirectToAction("List", "product");
+                return RedirectToAction("Index");
             }
             return View(island);
 
@@ -90,7 +90,7 @@ namespace ReserverRideVar01.Areas.admin.Controllers
             island.IslandName = i.IslandName;
             _db.SaveChanges();
 
-            return RedirectToAction("List", "product");
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int? id)
