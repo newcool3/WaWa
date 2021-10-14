@@ -20,7 +20,5 @@ namespace ReserverRideVar01.Controllers
         {
             return View();
         }
-        
-        
     }
 }
