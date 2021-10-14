@@ -15,22 +15,24 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>外島總覽</h2>
+                        <h2>產品總覽</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-
                         <p>
                             <a asp-action="create" asp-area="admin">Create New</a>
                         </p>
-
                         <div class="table-responsive">
                             <table class="table table-striped jambo_table bulk_action">
                                 <thead>
                                     <tr class="headings">
-                                        <th class="column-title">Island ID </th>
-                                        <th class="column-title">Island Name </th>
-                                        <th class="column-title">Island Photo </th>
+                                        <th class="column-title">Product ID </th>
+                                        <th class="column-title">Product Name </th>
+                                        <th class="column-title">Product Price </th>
+                                        <th class="column-title">Product Cost </th>
+                                        <th class="column-title">Product Description </th>
+                                        <th class="column-title">Product Qty </th>
+                                        <th class="column-title">Product Photo </th>
                                         <th class="column-title no-link last">
                                             <span class="nobr">Action</span>
                                         </th>
@@ -40,30 +42,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var island in Model.Islands)
+                                    @foreach (var product in Model.Products)
                                     {
                                     <tr class="even pointer">
-                                        <td class=" ">@island.IslandId</td>
-                                        <td class=" ">@island.IslandName</td>
-                                        @if (@island.IslandPhoto != null)
+                                        <td class=" ">@product.ProductId</td>
+                                        <td class=" ">@product.ProductName</td>
+                                        <td class=" ">@product.ProductPrice</td>
+                                        <td class=" ">@product.ProductCost</td>
+                                        <td class=" ">@product.ProductDescription</td>
+                                        <td class=" ">@product.ProductQty</td>
+                                        @if (@product.ProductPhoto != null)
                                         {
-                                            <td><img src="data:image;base64,@Convert.ToBase64String(island.IslandPhoto)" width="200" /></td>
+                                            <td><img src="data:image;base64,@Convert.ToBase64String(product.ProductPhoto)" width="200" /></td>
                                         }
                                         else
                                         {
                                             <td class=" "></td>
                                         }
                                         <td class=" last">
-                                            <a asp-action="Edit" asp-route-id="@island.IslandId">Edit</a> |
-                                            <a asp-action="Delete" asp-route-id="@island.IslandId">Delete</a>
+                                            <a asp-action="Edit" asp-route-id="@product.ProductId">Edit</a> |
+                                            <a asp-action="Delete" asp-route-id="@product.ProductId">Delete</a>
                                         </td>
                                     </tr>
                                     }
                                 </tbody>
                             </table>
                         </div>
-
-
                     </div>
                 </div>
             </div>

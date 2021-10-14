@@ -23,7 +23,7 @@
                         @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-label-left input_mask", @area = "admin", @controller = "island", @action = "edit", @enctype = "multipart/form-data" }))
                         {
                             @Html.AntiForgeryToken()
-
+                            <input type="hidden" asp-for="IslandId" />
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">
                                     外島名稱 <span class="required">*</span>
