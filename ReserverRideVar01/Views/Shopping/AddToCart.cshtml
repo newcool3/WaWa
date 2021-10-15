@@ -1,60 +1,61 @@
 ﻿@{
     ViewData["Title"] = "AddToCart";
-    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+    Layout = "~/Views/Shared/_CartLayout.cshtml";
 
 }
 
-
-
-    @*<div class="form-horizontal">
-        <div class="form-group">
-
-            <div class="col-md-1">
-                輸入數量
-                @Html.TextBox("txtCount", "1",
-                    new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-        <input type="hidden" name="txtFid" value="@Model.ProductId" />
-        <div class="form-group">
-            <div class="col-md-offset-0 col-md-1">
-                <input type="submit" value="確認" class="btn btn-default" />
-            </div>
-        </div>
-    </div>*@
-    <section class="ftco-section contact-section">
-        <div class="container">
-            <div class="row block-9">
-                <div class="col-md-6 order-md-last d-flex">
-                    @using (Html.BeginForm())
-                    {
-                        @Html.AntiForgeryToken()
-                    <form action="#" class="bg-white p-5 contact-form">
-                        <input type="hidden" name="txtFid" value="@Model.ProductId" />
-                        <div class="form-group">
-                            <a>@Model.ProductName</a>
-                        </div>
-                        <div class="form-group">
-                            <a>NT$ @Model.ProductPrice</a>
-                        </div>
-                        <div class="form-group">
-                            <a>@Model.ProductDescription</a>
-                        </div>
-                        <div class="form-group">
-                            <input id="txtCount" name="txtCount" type="text" class="form-control" value="1">
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="加入購物車" class="btn btn-primary py-3 px-5">
-                        </div>
-                    </form>
-                    }
+<section style="padding-bottom:150px" class="ftco-section contact-section bg-light">
+    <div class="container">
+        <div class="row block-9">
+            <div class="col-md-6 order-md-last d-flex">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "bg-white p-5 contact-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="txtFid" value="@Model.ProductId" />
+                    <div class="form-group">
+                        <a>@Model.ProductName</a>
                     </div>
-                <div class="col-md-6 d-flex">
-                    <div><img src="data:image;base64,@Convert.ToBase64String(@Model.ProductPhoto)" width="500" height="500" /></div>
-                </div>
+                    <div class="form-group">
+                        <a>NT$ @Model.ProductPrice</a>
+                    </div>
+                    <div class="form-group">
+                        <a>@Model.ProductDescription</a>
+                    </div>
+                    <div class="form-group">
+                        <div class="decrement btn btn-primary">-</div>
+                        <input id="txtCount" name="txtCount" type="text" class="itxt form-con" value="1" >
+                        <div class="increment btn btn-primary">+</div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="加入購物車" class="btn btn-primary py-3 px-5">
+                    </div>
+                }
+            </div>
+            <div class="col-md-6 d-flex">
+                <div><img src="data:image;base64,@Convert.ToBase64String(@Model.ProductPhoto)" width="525" height="500" /></div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
+
+@section Scripts{
+    <script>
+
+        $(".increment").click(function () {
+            var num = $(this).siblings(".itxt").val();
+            num++;
+            $(".itxt").val(num);
+        })
+        $(".decrement").click(function () {
+            var num = $(this).siblings(".itxt").val();
+            if (num > 1) {
+                num--;
+            }
+            $(".itxt").val(num);
+        })
+
+    </script>
+}
 
 

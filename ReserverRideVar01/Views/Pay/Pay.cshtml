@@ -1,20 +1,51 @@
 ﻿
 @{
     ViewData["Title"] = "Pay";
+    Layout = "~/Views/Shared/_CartLayout.cshtml";
+
 }
 
-<h1>付款頁面</h1>
 
-<table class="table">
-    <form name="ezPay" method="post" action="https://cpayment.ezpay.com.tw/MPG/mpg_gateway">
-        <input type="hidden" name="MerchantID" value=@ViewBag.MerchantID />
-        <input type="hidden" name="Version" value="1.0" />
-        <input type="hidden" name="TradeInfo" value=@ViewBag.TradeInfo />
-        <input type="hidden" name="TradeSha" value=@ViewBag.TradeSha /><br />付款時間 :
-        <input type="text" name="TimeStamp" value=@ViewBag.TimeStamp readonly unselectable="on" /><br />付款號碼 :
-        <input type="text" name="MerchantOrderNo" value=@ViewBag.MerchantOrderNo readonly unselectable="on" /><br />付款金額 :
-        <input type="text" name="Amt" value=@ViewBag.Amt readonly unselectable="on" /><br />付款項目 :
-        <input type="text" name="ItemDesc" value=@ViewBag.ItemDesc readonly unselectable="on" /><br />
-        <input type="submit" value="Submit" />
-    </form>
-</table>
+<section class="ftco-section contact-section bg-light">
+    <div class="container">
+        <center>
+            <div class="col-md-6 order-md-last d-flex">
+
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "bg-white p-5 contact-form", @action = "https://cpayment.ezpay.com.tw/MPG/mpg_gateway" }))
+                {
+
+                    <h1>付款</h1>
+
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="MerchantID" value=@ViewBag.MerchantID />
+                    <input type="hidden" name="Version" value="1.0" />
+                    <input type="hidden" name="TradeInfo" value=@ViewBag.TradeInfo />
+                    <input type="hidden" name="TradeSha" value=@ViewBag.TradeSha /><br />
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <a>付款日期 :</a>
+                        <input type="text" name="TimeStamp" value=@ViewBag.TimeStamp readonly unselectable="on" />
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <a>付款單號 :</a>
+                        <input type="text" name="MerchantOrderNo" value=@ViewBag.MerchantOrderNo readonly unselectable="on" />
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <a>付款金額:</a>
+                        <input type="text" name="Amt" value=@ViewBag.Amt readonly unselectable="on" />
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <a>產品項目:</a>
+                        <input type="text" name="ItemDesc" value=@ViewBag.ItemDesc readonly unselectable="on" />
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button type="submit" class="btn btn-primary ">確認付款</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </center>
+
+    </div>
+</section>
