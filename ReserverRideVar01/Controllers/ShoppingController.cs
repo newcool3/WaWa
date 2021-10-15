@@ -19,6 +19,10 @@ namespace ReserverRideVar01.Controllers
         {
             _db = db;
         }
+        private void clearSession(object sender, EventArgs e)
+        {
+            HttpContext.Session.Clear();
+        }
         public ActionResult ViewCart()
         {
             List<CShoppingCartItemViewModel> cart = null;
