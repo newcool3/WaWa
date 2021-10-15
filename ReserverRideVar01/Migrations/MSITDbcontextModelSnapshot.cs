@@ -92,6 +92,10 @@ namespace ReserverRideVar01.Migrations
                     b.Property<int>("MemberType")
                         .HasColumnType("int");
 
+                    b.Property<string>("Role")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("MemberID");
 
                     b.ToTable("Members");

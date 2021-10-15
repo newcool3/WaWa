@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using JWT.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ReserverRideVar01.DbContext;
@@ -45,6 +47,7 @@ namespace ReserverRideVar01.Controllers
 
         public IActionResult Index()
         {
+
             if (!HttpContext.Session.Keys.Contains(Dictionary.SK_LOGIN_USER))
                 return RedirectToAction("Login");
             string json = HttpContext.Session.GetString(Dictionary.SK_LOGIN_USER);
@@ -53,6 +56,7 @@ namespace ReserverRideVar01.Controllers
             return View();
         }
 
+       
         public IActionResult Privacy()
         {
             return View();

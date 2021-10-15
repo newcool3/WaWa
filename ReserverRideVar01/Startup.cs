@@ -1,15 +1,12 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ReserverRideVar01.DbContext;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ReserverRideVar01
 {
@@ -30,7 +27,15 @@ namespace ReserverRideVar01
                 options.UseSqlServer(Configuration.GetConnectionString("MSITConnectionString"));
             });
             services.AddSession();
-
+            
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.Cookie.Name = "MSIT04";
+                    options.ExpireTimeSpan = TimeSpan.FromHours(2);
+                    options.LoginPath = "/admin/admin/login";  // if the cookie auth fails, go to this url
+                    options.AccessDeniedPath = "/admin/admin/deined"; // if the access deined, go to this url
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,13 +57,18 @@ namespace ReserverRideVar01
             app.UseRouting();
             app.UseSession();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "admin",
+                    pattern: "{area:exists}/{controller=admin}/{action=index}/{id?}");
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
             });
         }
     }

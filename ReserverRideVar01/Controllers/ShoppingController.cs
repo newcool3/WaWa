@@ -72,7 +72,7 @@ namespace ReserverRideVar01.Controllers
                 json = JsonSerializer.Serialize(cart);
                 HttpContext.Session.SetString(Dictionary.SK_PURCHASED_PRODUCTS_IN_SHOPPINGCART, json);
             }
-            return RedirectToAction("List", "product");
+            return RedirectToAction("ViewCart", "shopping");
 
         }
     }
