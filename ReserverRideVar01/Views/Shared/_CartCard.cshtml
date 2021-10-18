@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ReserverRideVar01.ViewModels.CShoppingCartItemViewModel>
+
+
+@{
+    
+    @if (Model != null)
+    {
+        @foreach (var item in Model)
+        {
+            
+            <tr class="even pointer">
+                <td class=" ">@item.product.ProductName</td>
+                <td class=" ">NT$ @item.price</td>
+                <td class=" ">@item.count</td>
+                <td class=" ">NT$ @item.小計</td>
+                @if (@item.product.ProductPhoto != null)
+                {
+                    <td><img src="data:image;base64,@Convert.ToBase64String(item.product.ProductPhoto)" width="200" /></td>
+                }
+                else
+                {
+                    <td class=" "></td>
+                }
+                <td class="last">
+                    @*<a class="deleteOne btn btn-success" value="@item.ProductId">刪除</a>*@
+                </td>
+            </tr>
+        }
+    }
+
+}

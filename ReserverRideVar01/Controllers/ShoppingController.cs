@@ -19,9 +19,34 @@ namespace ReserverRideVar01.Controllers
         {
             _db = db;
         }
-        private void clearSession(object sender, EventArgs e)
+        public ActionResult RemoveCart(int id)
         {
-            HttpContext.Session.Clear();
+            List<CShoppingCartItemViewModel> cart = null;
+            Product prod = _db.Products.FirstOrDefault(p => p.ProductId == id);
+            if (HttpContext.Session.Keys.Contains(
+                Dictionary.SK_PURCHASED_PRODUCTS_IN_SHOPPINGCART))
+            {
+                string json = HttpContext.Session.GetString(
+                    Dictionary.SK_PURCHASED_PRODUCTS_IN_SHOPPINGCART);
+                cart = JsonSerializer.Deserialize<List<CShoppingCartItemViewModel>>(json);
+                HttpContext.Session.Remove(Dictionary.SK_PURCHASED_PRODUCTS_IN_SHOPPINGCART);
+                var itemToRemove = cart.Single(i => i.ProductId == id);
+                cart.Remove(itemToRemove);
+                json = JsonSerializer.Serialize(cart);
+                HttpContext.Session.SetString(Dictionary.SK_PURCHASED_PRODUCTS_IN_SHOPPINGCART, json);
+                cart = JsonSerializer.Deserialize<List<CShoppingCartItemViewModel>>(json);
+            }
+            else
+                return PartialView("_CartCard", cart);
+
+            return PartialView("_CartCard", cart);
+        }
+
+        public ActionResult RemoveAllCart()
+        {
+            HttpContext.Session.Remove(Dictionary.SK_PURCHASED_PRODUCTS_IN_SHOPPINGCART);
+            List<CShoppingCartItemViewModel> cart = null;
+            return PartialView("_CartCard", cart);
         }
         public ActionResult ViewCart()
         {
@@ -34,7 +59,7 @@ namespace ReserverRideVar01.Controllers
                 cart = JsonSerializer.Deserialize<List<CShoppingCartItemViewModel>>(json);
             }
             else
-                return RedirectToAction("List", "product");
+                return View(cart);
             return View(cart);
         }
         public IActionResult AddToCart(int? id)

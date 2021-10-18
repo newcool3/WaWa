@@ -27,6 +27,10 @@
         }
     </div>
 </div>
+<center>
+    <input class="searchtxt" type="text" placeholder="Search.." name="search">
+    <button class="search"><i class="fa fa-search"></i></button>
+</center>
 
 <section class="ftco-section">
     <div class="container">
@@ -67,6 +71,8 @@
                 $('div.product-list').load("/Product/index/" + $(this).attr("value"))
             })
         });
-
+        $(".search").click(function () {
+            $('div.product-list').load("/Product/indexString", "str="+ $(".searchtxt").val().toString())
+        })
     </script>
 }

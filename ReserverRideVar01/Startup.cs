@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,8 +27,10 @@ namespace ReserverRideVar01
             services.AddDbContext<MSITDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("MSITConnectionString"));
             });
+
             services.AddSession();
-            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -64,10 +67,10 @@ namespace ReserverRideVar01
             {
                 endpoints.MapControllerRoute(
                     name: "admin",
-                    pattern: "{area:exists}/{controller=admin}/{action=index}/{id?}");
+                    pattern: "{area:exists}/{controller=admin}/{action=login}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=product}/{action=list}/{id?}");
                 
             });
         }

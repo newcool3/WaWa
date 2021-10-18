@@ -29,48 +29,39 @@
                                         <th class="column-title">小計</th>
                                         <th class="column-title">產品照片</th>
                                         <th class="column-title no-link last">
-                                            <span class="nobr">Action</span>
+                                            <span class="nobr">動作</span>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr class="cart">
+                                        <partial name="_CartCard" model=Model />
+                                    </tr>
                                     @{
-                                        int count = 0;
                                         decimal payment = 0;
-
-                                        @foreach (var item in Model)
+                                        if (Model != null)
                                         {
-                                            count++;
-                                            payment += item.小計;
-                                            <tr class="even pointer">
-                                                <td class=" ">@item.product.ProductName</td>
-                                                <td class=" ">NT$ @item.price</td>
-                                                <td class=" ">@item.count</td>
-                                                <td class=" ">NT$ @item.小計</td>
-                                                @if (@item.product.ProductPhoto != null)
-                                                {
-                                                    <td><img src="data:image;base64,@Convert.ToBase64String(item.product.ProductPhoto)" width="200" /></td>
-                                                }
-                                                else
-                                                {
-                                                    <td class=" "></td>
-                                                }
-                                                <td class="last">
-                                                    <a class="delete btn">Delete</a>
-                                                </td>
-                                            </tr>
+                                            foreach (var item in Model)
+                                            {
+                                                payment += item.小計;
+                                            }
                                         }
                                     }
-                                    <tr class="even pointer">
-                                        <td class=" ">總額:</td>
-                                        <td class=" "></td>
-                                        <td class=" "></td>
-                                        <td class=" ">@payment</td>
-                                        <td class=""></td>
-                                        <td class="">
-                                            @Html.ActionLink("結帳", "pay", "pay", new { payment = @payment }, new { @class = "btn btn-secondary rounded" })
-                                        </td>
-                                    </tr>
+                                    @if (Model != null)
+                                    {
+                                        <tr class="even pointer">
+                                            <td class=" ">總額:</td>
+                                            <td class=" "></td>
+                                            <td class=" "></td>
+                                            <td class=" ">@payment</td>
+                                            <td class=""></td>
+                                            <td class="">
+                                                <a class="delete btn btn-success rounded" style="color:white">清空購物車</a> |
+                                                @Html.ActionLink("結帳", "pay", "pay", new { payment = @payment }, new { @class = "btn btn-secondary rounded" })
+                                            </td>
+                                        </tr>
+                                    }
+
                                 </tbody>
                             </table>
                         </div>
@@ -86,12 +77,12 @@
     <script>
 
         $(".delete").click(function () {
-            $(this).parents(".even").remove();
-            $.post('Shopping/clearSession', null, function (data) {
-                console.log(data);
-            });
+            $("tr.even").load("/Shopping/RemoveAllCart")
+        })
+        $(".deleteOne").click(function () {
+            console.log($(this).attr("value"))
+            $("tr.even").load("/Shopping/RemoveCart/"+ $(this).attr("value"))
         })
 
     </script>
 }
-
