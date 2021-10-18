@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ReserverRideVar01.DbContext;
 using ReserverRideVar01.Models;
 using ReserverRideVar01.ViewModel;
@@ -41,11 +42,13 @@ namespace ReserverRideVar01.Areas.admin.Controllers
             productView.Islands = GetIsland();
             return View(productView);
         }
+        [Authorize(Roles = "manager")]
         [HttpGet, Area("admin"), ActionName("create")]
         public ActionResult create()
         {
             return View();
         }
+        [Authorize(Roles = "manager")]
         [HttpPost]
         public ActionResult create(IslandViewModel i)
         {
@@ -63,6 +66,7 @@ namespace ReserverRideVar01.Areas.admin.Controllers
 
             return View();
         }
+        [Authorize(Roles = "manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,6 +81,7 @@ namespace ReserverRideVar01.Areas.admin.Controllers
             return View(island);
 
         }
+        [Authorize(Roles = "manager")]
         [HttpPost]
         public ActionResult Edit(IslandViewModel i)
         {
@@ -92,7 +97,7 @@ namespace ReserverRideVar01.Areas.admin.Controllers
 
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "manager")]
         public ActionResult Delete(int? id)
         {
             if (id != null)
