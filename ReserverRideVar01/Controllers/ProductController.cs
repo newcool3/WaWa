@@ -57,9 +57,6 @@ namespace ReserverRideVar01.Controllers
         public IActionResult List()
         {
             ProductViewModel productView = new ProductViewModel();
-
-            //var product = _db.Products.Include(i => i.Island).ToList();
-
             productView.Products = GetProduct();
             productView.Islands = GetIsland();
             return View(productView);
@@ -67,10 +64,13 @@ namespace ReserverRideVar01.Controllers
         }
         public IActionResult index(int? id)
         {
-            //MSITDbContext db = new MSITDbContext();
-            //Product products = db.Products.Where(i => i.IslandId == id);
-
             var products = _db.Products.Where(i => i.IslandId == id);
+            return PartialView("_ProductCard", products);
+        }
+
+        public IActionResult indexString(string str)
+        {
+            var products = _db.Products.Where(i => EF.Functions.Like(i.ProductName, $"%{str}%"));
             return PartialView("_ProductCard", products);
         }
     }
