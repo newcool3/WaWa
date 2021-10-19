@@ -58,10 +58,10 @@
                                         <li><a href="@Url.Action("index","island", new { area = "admin" })">island</a></li>
                                     </ul>
                                 </li>
-                                
+
                             </ul>
                         </div>
-                        
+
 
                     </div>
                     <!-- /sidebar menu -->
@@ -93,7 +93,7 @@
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
-                            
+
 
                             <li role="presentation" class="dropdown">
                                 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
@@ -216,6 +216,6 @@
     <script src="~/vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="~/build/js/custom.min.js"></script>
-
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

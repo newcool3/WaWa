@@ -23,7 +23,7 @@ namespace ReserverRideVar01.Controllers
         private List<Product> GetProduct()
         {
             List<Product> product = new List<Product>();
-            var products = _db.Products;
+            var products = _db.Products.Include(i=>i.Island).ToList();
             foreach (var item in products)
             {
                 product.Add(new Product()
@@ -34,7 +34,8 @@ namespace ReserverRideVar01.Controllers
                     ProductDescription = item.ProductDescription,
                     ProductPrice = item.ProductPrice,
                     ProductPhoto = item.ProductPhoto,
-                    ProductQty = item.ProductQty
+                    ProductQty = item.ProductQty,
+                    Island = item.Island
                 });
             }
             return product;
@@ -64,13 +65,13 @@ namespace ReserverRideVar01.Controllers
         }
         public IActionResult index(int? id)
         {
-            var products = _db.Products.Where(i => i.IslandId == id);
+            var products = _db.Products.Where(i => i.IslandId == id).Include(j=>j.Island).ToList();
             return PartialView("_ProductCard", products);
         }
 
         public IActionResult indexString(string str)
         {
-            var products = _db.Products.Where(i => EF.Functions.Like(i.ProductName, $"%{str}%"));
+            var products = _db.Products.Where(i => EF.Functions.Like(i.ProductName, $"%{str}%")).Include(j=>j.Island).ToList();
             return PartialView("_ProductCard", products);
         }
     }

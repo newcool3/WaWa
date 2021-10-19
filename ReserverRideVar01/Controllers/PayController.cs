@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ReserverRideVar01.Models;
 using ReserverRideVar01.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ namespace ReserverRideVar01.Controllers
 {
     public class PayController : Controller
     {
-        string hashKey = "OLkdjTkzOoNYjDmeFmCk7CORlRTo4F47";
-        string hashIV = "CHsEQUu2AbRqDtQP";
+        string hashKey = Dictionary.hashKey;
+        string hashIV = Dictionary.hashIV;
         [HttpGet]
         public IActionResult Pay(decimal payment)
         {
@@ -20,9 +21,9 @@ namespace ReserverRideVar01.Controllers
                 string dateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
                 string orderNo = "Ezpay" + new Random().Next(0, 99999).ToString();
                 string info = $"MerchantID=PG100000008080&TimeStamp={dateTime}&Version=1.0&MerchantOrderNo={orderNo}&Amt={payment}&ItemDesc=test";
-                Console.WriteLine(EncryptAES256(info, hashKey, hashIV));
+                //Console.WriteLine(EncryptAES256(info, hashKey, hashIV));
                 string aes = EncryptAES256(info, hashKey, hashIV);
-                Console.WriteLine(getHashSha256($"HashKey={hashKey}&{aes}&HashIV={hashIV}"));
+                //Console.WriteLine(getHashSha256($"HashKey={hashKey}&{aes}&HashIV={hashIV}"));
                 string sha = getHashSha256($"HashKey={hashKey}&{aes}&HashIV={hashIV}");
                 
                 ViewBag.MerchantID = "PG100000008080";
