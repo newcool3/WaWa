@@ -149,6 +149,7 @@
                             <div class="row no-print">
                                 <div class="col-xs-12">
                                     <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+                                    <button class="search"><i class="fa fa-search"></i></button>
                                 </div>
                             </div>
                         </section>
@@ -158,3 +159,21 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts{
+    <script>
+        $(".search").click(function () {
+            $.ajax({
+                url:'@Url.Action("SendMailByGmail", "product", new { @area = "admin" })',
+                type: 'POST',
+                data: @ViewBag.MerchantOrderNoa,      //Possibly a json
+                contentType: 'Application/json',
+                success: function(result)
+                {
+                    alert('Email has benn send');
+                }
+            });
+        })
+    </script>
+}
