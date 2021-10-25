@@ -55,6 +55,9 @@ namespace ReserverRideVar01
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            //因有順序性，app.UseDefaultFiles()需在 app.UsestaticFiles 之前 
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseRouting();
