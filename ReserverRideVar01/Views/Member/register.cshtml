@@ -1,8 +1,11 @@
-﻿
-<!DOCTYPE html>
+﻿@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+}
+@*<!DOCTYPE html>
 
 <html lang="zh-Hant-TW">
-<head>
+<head>*@
     <meta charset="utf-8" />
     <title>Form元素</title>
     <style>
@@ -42,50 +45,132 @@
             color: red;
         }
     </style>
-</head>
-<body>
-    <br>
-    <br>
-    <br>
-    <br>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <form asp-action="register">
+@*</head>
+<body>*@
+
+    <form asp-action="register" id="form1" >
         <fieldset>
-            <legend>個人資料一<em>必填</em></legend>
-            <div>
+            <legend>個人資料<em>必填</em></legend>
+            <div class="st1">
+                <label class="t1">會員類型:</label>
+                <input type="radio" name="MemberType" value="一般會員" id="m1" /><label for="m1">一般會員</label>
+                <label>
+                    <input type="radio" name="MemberType" value="廠商" />廠商
+                </label>
+            </div>
+            <div class="st1">
                 <label for="account1" class="t1">姓名:</label>
                 <input type="text" id="account1" name="MemberName" autofocus placeholder="guest" autocomplete="off" size="10" />
             </div>
-
             <div class="st1">
                 <label class="t1">帳號:</label>
-                <input type="email" name="MemberEmail" placeholder="請輸入E-mail" />
+                <input type="email" name="MemberEmail" placeholder="請輸入E-mail" id="email"/>
             </div>
             <div class="st1">
                 <label for="pwd1" class="t1">密碼:</label>
-                <input type="password" id="pwd1" name="MemberPassword" maxlength="6" required />
-            </div>
-            <div class="st1">
-                <label class="t1">生日:</label>
-                <input type="date" name="MemberBirthday" />
+                <input type="password" id="pwd1" name="MemberPassword" maxlength="10" onblur="checkpas1();" required />
             </div>
 
             <div class="st1">
+                <label for="pwd2" class="t1">確認密碼:</label>
+                <input type="password" id="pwd2" name="MemberPassword2" maxlength="10" onChange="checkpas();" required /><br />
+                <span class="tip" style="color: red;">兩次輸入的密碼不一致</span>
+            </div>
+
+            <div class="st1">
+                <label class="t1">生日:</label>
+                <input type="date" name="MemberBirthday" id="birth" />
+            </div>
+            <div class="st1">
                 <label class="t1">身分證字號:</label>
-                <input type="text" name="MemberNumberID" maxlength="10" pattern="[a-z,A-Z]{1}[1-2,8-9]{1}\d{8}" />
+                <input type="text" name="MemberNumberID" maxlength="10" pattern="[a-z,A-Z]{1}[1-2,8-9]{1}\d{8}" id="numberid"/>
             </div>
             <div class="st1">
                 <label class="t1">手機號碼:</label>
-                <input type="text" name="MemberPhone" maxlength="10" />
+                <input type="text" name="MemberPhone" maxlength="10" id="phone"/>
             </div>
         </fieldset>
 
-
         <div class="sub">
-            <input type="submit" value="送出" />
+            <input type="submit" value="送出" onclick="checkpas2();" id="submit" />
             <input type="reset" value="清除" />
         </div>
 
     </form>
-</body>
-</html>
+@*</body>
+</html>*@
+<script>
+    //$(function () {
+    //    $(".tip").hide();
+    //    function checkpas1() {//當第一個密碼框失去焦點時，觸發checkpas1事件
+    //        var pas1 = document.getElementById("pwd1").value;
+    //        var pas2 = document.getElementById("pwd2").value; //獲取兩個密碼框的值
+    //        if (pas1 != pas2 && pas2 != "")//此事件當兩個密碼不相等且第二個密碼是空的時候會顯示錯誤資訊
+    //            $(".tip").show();
+    //        else
+    //            $(".tip").hide();//若兩次輸入的密碼相等且都不為空時，不顯示錯誤資訊。
+    //    }
+    //    function checkpas() {//當第一個密碼框失去焦點時，觸發checkpas件
+    //        var pas1 = document.getElementById("pwd1").value;
+    //        var pas2 = document.getElementById("pwd2").value;//獲取兩個密碼框的值
+    //        if (pas1 != pas2) {
+    //            $(".tip").show();//當兩個密碼不相等時則顯示錯誤資訊
+    //        } else {
+    //            $(".tip").hide();
+    //        }
+    //    }
+    //    function checkpas2() {//點選提交按鈕時，觸發checkpas2事件，會進行彈框提醒以防無視錯誤資訊提交
+    //        var pas3 = document.getElementById("pwd1").value;
+    //        var pas4 = document.getElementById("pwd2").value;
+    //        if (pas3 != pas4) {
+    //            alert("兩次輸入的密碼不一致！");
+    //            return false;
+    //        }
+    //    }
+    //})
+
+
+    $(".tip").hide();
+    function checkpas1() {//當第一個密碼框失去焦點時，觸發checkpas1事件
+        var pas1 = document.getElementById("pwd1").value;
+        var pas2 = document.getElementById("pwd2").value; //獲取兩個密碼框的值
+        if (pas1 != pas2 && pas2 != "")//此事件當兩個密碼不相等且第二個密碼是空的時候會顯示錯誤資訊
+            $(".tip").show();
+        else
+            $(".tip").hide();//若兩次輸入的密碼相等且都不為空時，不顯示錯誤資訊。
+    }
+    function checkpas() {//當第一個密碼框失去焦點時，觸發checkpas件
+        var pas1 = document.getElementById("pwd1").value;
+        var pas2 = document.getElementById("pwd2").value;//獲取兩個密碼框的值
+        if (pas1 != pas2) {
+            $(".tip").show();//當兩個密碼不相等時則顯示錯誤資訊
+        } else {
+            $(".tip").hide();
+        }
+    }
+    function checkpas2() {//點選提交按鈕時，觸發checkpas2事件，會進行彈框提醒以防無視錯誤資訊提交
+        var pas3 = document.getElementById("pwd1").value;
+        var pas4 = document.getElementById("pwd2").value;
+        if (pas3 != pas4) {
+            alert("兩次輸入的密碼不一致！");
+            return false;
+        }
+    }
+
+    //$("#submit").click(function () {
+    //    if ($("#account1").val() == "") {
+    //        alert("你尚未填寫姓名");
+    //        eval("document.form1['account1'].focus()");
+    //    } else if ($("#email").val() == "") {
+    //        alert("你尚未填寫帳號");
+    //        eval("document.form1['email'].focus()");
+    //    } else if ($("#pwd1").val() == "") {
+    //        alert("你尚未填寫密碼");
+    //        eval("document.form1['pwd1'].focus()");
+    //    } else {
+    //        document.form1.submit();
+    //    }
+ 
+</script>
