@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReserverRideVar01.DbContext;
 
 namespace ReserverRideVar01.Migrations
 {
     [DbContext(typeof(MSITDbContext))]
-    partial class MSITDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20211025065100_Member-table-change-MemberType-column-required-and-Type-nvarchar")]
+    partial class MembertablechangeMemberTypecolumnrequiredandTypenvarchar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
