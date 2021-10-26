@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ReserverRideVar01.Controllers
 {
+    [Area("admin")]
     public class BackStageController : Controller
     {
         MSITDbContext _db;
