@@ -1,0 +1,19 @@
+﻿#sidebar {
+  
+    /*border: 1px #666 dashed;*/
+    text-align:center;
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    float: left;
+    width:650px;
+}
+
+#sidebody {
+   /* border: 1px #666 dashed;*/
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    float: right;
+  
+}

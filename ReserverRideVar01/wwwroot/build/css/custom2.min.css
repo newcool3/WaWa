@@ -568,11 +568,11 @@ body .container.body .right_col {
 
 body {
     color: #73879C;
-    background: #2A3F54;
+    background: #FFFFFF;
     font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
     font-size: 13px;
     font-weight: 400;
-    line-height: 1.471
+    line-height: 2.5
 }
 
 .main_container .top_nav {
@@ -4395,7 +4395,7 @@ fieldset {
         .wizard_verticle ul.wizard_steps li a, .wizard_verticle ul.wizard_steps li:hover {
             display: block;
             position: relative;
-            -moz-opacity: 1;
+            opacity: 1;
             filter: alpha(opacity=100);
             opacity: 1;
             color: #666
