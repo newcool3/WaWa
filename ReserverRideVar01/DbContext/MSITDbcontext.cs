@@ -10,6 +10,8 @@ namespace ReserverRideVar01.DbContext
 {
     public class MSITDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
+
+
         public MSITDbContext()
         {
         }
@@ -20,7 +22,9 @@ namespace ReserverRideVar01.DbContext
         public DbSet<Store> Stores { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Member> Members { get; set; }
+        public DbSet<Activity> Activities { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ActivityOrder> ActivityOrders { get; set; }
 
 
     }
