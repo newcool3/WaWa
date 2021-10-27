@@ -6,7 +6,7 @@
 
 }
     <div class="right_col" role="main">
-        <div class="">
+        <div class="" >
             <div class="page-title">
                 <div class="title_left">
                     <h3>Admin panel</h3>
@@ -14,7 +14,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="row">
-                <div @*class="col-md-12 col-sm-12 col-xs-12"*@ style="overflow-x:auto">
+                <div class="col-md-12 col-sm-12 col-xs-12" >
                     <div class="x_panel">
                         <div class="x_title">
                             <h1>會員資料一覽表</h1>
@@ -59,9 +59,6 @@
                                                 @Html.DisplayNameFor(model => model.MemberEnable)
                                             </th>
                                             <th>
-                                                @Html.DisplayNameFor(model => model.MemberPhoto)
-                                            </th>
-                                            <th>
                                                 @Html.DisplayNameFor(model => model.MemberType)
                                             </th>
                                             <th>
@@ -70,8 +67,9 @@
                                             <th>
                                                 @Html.DisplayNameFor(model => model.MemberModifyDate)
                                             </th>
-
-                                            <th></th>
+                                            <th>
+                                                修改|刪除
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -102,9 +100,6 @@
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.MemberEnable)
                                                 </td>
-                                                @*<td>
-                                                        @Html.DisplayFor(modelItem => item.MemberPhoto)
-                                                    </td>*@
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.MemberType)
                                                 </td>
