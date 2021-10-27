@@ -1,0 +1,174 @@
+﻿
+@model IEnumerable<ReserverRideVar01.Models.Activity>;
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/areas/admin/Views/Shared/_AdminLayout.cshtml"; }
+}
+
+
+<section>
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Admin panel</h3>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h1>活動列表</h1>
+                            <p>
+                                <div style="float: right ">
+                                    <span>關鍵字</span>
+                                    <input type="text"
+                                           value="@ViewBag.keyword"
+                                           name="txtKeyword"
+                                           hint="輸入查詢資料" />
+                                    <input type="submit" value="查詢" id="searchBtn" />
+                                </div>
+                                <a asp-action="Create">建立新活動</a>
+                            </p>
+                            <br />
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                    <tr class="headings" align="center" valign="center" style="text-align:center">
+                                        <th style="text-align:center">
+                                            @Html.DisplayNameFor(model => model.ActivityName)
+                                        </th>
+                                        <th style="text-align:center">
+                                            @Html.DisplayNameFor(model => model.Island.IslandName)
+                                        </th>
+                                        <th style="text-align:center">
+                                            @Html.DisplayNameFor(model => model.ActivityType)
+                                        </th>
+                                        <th style="text-align:center">
+                                            @Html.DisplayNameFor(model => model.ActivityStartDate)
+                                        </th>
+                                        <th style="text-align:center">
+                                            @Html.DisplayNameFor(model => model.ActivityEndDate)
+                                        </th>
+                                        <th style="text-align:center">
+                                            @Html.DisplayNameFor(model => model.ActivityPrice)
+                                        </th>
+                                        <th style="text-align:center">
+                                            @Html.DisplayNameFor(model => model.ActivityLocation)
+                                        </th>
+                                        <th style="text-align:center">
+                                            @Html.DisplayNameFor(model => model.ActivityState)
+                                        </th>
+                                        <th style="text-align:center">
+                                            @Html.DisplayNameFor(model => model.ActivityNumberLimit)
+                                        </th>
+                                        <th style="text-align:center">
+                                            @Html.DisplayNameFor(model => model.ActivityDeadline)
+                                        </th>
+                                        <th style="text-align:center">
+                                            @Html.DisplayNameFor(model => model.ActivityPhoto)
+
+                                        </th>
+                                        <th style="text-align:center">
+                                            <a class="antoo" style="color:#fff; font-weight:500;"> <span class="action-cnt"> </span>  <i class="fa fa-chevron-down"></i></a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="even pointer" align="center" valign="center">
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActivityName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Island.IslandName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActivityType)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActivityStartDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActivityEndDate)
+                                            </td>
+                                            @*<td>
+                                                    @Html.DisplayFor(modelItem => item.ActivityTimezone)
+                                                </td>*@
+                                            <td>
+                                                $@Html.DisplayFor(modelItem => item.ActivityPrice)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActivityLocation)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActivityState)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActivityNumberLimit) 人
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActivityDeadline)
+                                            </td>
+
+                                            <td>
+                                                @*@Html.DisplayFor(modelItem => item.ActivityPhoto)*@
+                                                @if (item.ActivityPhoto != null)
+                                                {<img src="data:image;base64,@Convert.ToBase64String(item.ActivityPhoto)" width="100" />}
+
+                                            </td>
+
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@item.ActivityId">Edit</a> |
+                                                <a asp-action="Delete" asp-route-id="@item.ActivityId">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+
+                            <div>
+                                <a asp-controller="Home" asp-action="Index">回到首頁</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+<script>
+   
+        $(document).ready(function () {
+            $('.btnlan').click(function () {
+                var txtKeyword = $(this).val();
+                console.log(txtKeyword);
+                $("input[name='txtKeyword']").val(txtKeyword);
+                $('#searchBtn').click();
+
+            });
+        });
+
+        //$.ajax({
+        //    url: "Activity/IslandRead",
+        //    success: function (result) {
+        //        console.log(result)
+        //        result.forEach((i) => {
+        //            $("#island_select").append(`<option value="${i.islandId}">${i.islandName}<option>`)
+        //        })
+        //    }
+        //});
+
+</script>
+}
