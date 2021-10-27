@@ -1,0 +1,62 @@
+﻿@model ReserverRideVar01.Models.ActivityOrder
+@{
+    ViewData["Title"] = "EditCart";
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+<h1>活動訂單修改</h1>
+<hr />
+<div class="row">
+    <div>
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OrderId" />
+            <div class="form-group">
+                <label asp-for="OrderName" class="control-label"></label>
+                <input asp-for="OrderName" class="form-control" />
+                <span asp-validation-for="OrderName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderPhone" class="control-label"></label>
+                <input asp-for="OrderPhone" class="form-control" />
+                <span asp-validation-for="OrderPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderCustom" class="control-label"></label>
+                <input asp-for="OrderCustom" class="form-control" id="OrderCustom" />
+                <span asp-validation-for="OrderCustom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderTotalPrice" class="control-label"></label>
+                <input asp-for="OrderTotalPrice" class="form-control" id="OrderTotalPrice" readonly="readonly" />
+                <span asp-validation-for="OrderTotalPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" asp-route-id="@Model.OrderId" />
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+    $("#OrderCustom").change(function () {
+        var custom = $("#OrderCustom").val();
+        console.log(custom);
+        $('#OrderTotalPrice').val(@Model.Activity.ActivityPrice* custom)
+        $("input[id='OrderTotalPrice']").val(@Model.Activity.ActivityPrice* custom);
+    });
+
+
+
+
+
+    </script>
+}
+
+
+

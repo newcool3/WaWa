@@ -1,0 +1,128 @@
+﻿@model ReserverRideVar01.Models.Activity
+
+@{
+    ViewData["Title"] = "AddToCart";
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+<head>
+    <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/css/StyleSidebody.css" rel="stylesheet" />
+</head>
+
+<section style="padding-bottom:150px" >
+    <div class="container">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    購物車
+                    <small>Shopping Cart</small>
+                </h2>
+                <div>
+                    <a asp-action="List">Back to List</a>
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+          
+            <div class="x_content">
+                <span style="width:20px"></span>
+                <div id="sidebar">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <form asp-action="AddToCart" id="demo-form2" data-parsley-validate class="form-horizontal form-label">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <input asp-for="ActivityName" class="form-control" style="font-size:large" readonly="readonly" />
+                                    <span asp-validation-for="ActivityName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="txtFId" value="@Model.ActivityId" id="activityId" />
+                                    <div>
+                                        <div class="col-md-10" style="font-size:16px">
+                                            <label>聯絡人姓名</label>
+                                            <br />
+                                            @Html.TextBox("txtName", "", null)
+                                        </div>
+                                        <div class="col-md-10" style="font-size:16px">
+                                            <label>連絡電話</label>
+                                            <br />
+                                            @Html.TextBox("txtPhone", "", null)
+                                        </div>
+                                        <div class="col-md-10" style="font-size:16px">
+                                            <label>選擇參加日期</label>
+                                            <br />
+                                            @Html.TextBox("txtDay", "", "")
+                                        </div>
+                                        <div class="col-md-10" style="font-size:16px">
+                                            <label>參加人數</label>
+                                            <br />
+                                            @Html.TextBox("txtCount", "1", null)
+                                        </div>
+                                        <div class="col-md-10" style="font-size:16px">
+                                            <label>可報名人數</label>
+                                            <br />
+                                            @Html.TextBox("NumCal", "", new { id = "NumCal", disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                   
+                </div>
+                <div id="sidebody">
+                    <div>
+                        <img src="data:image;base64,@Convert.ToBase64String(Model.ActivityPhoto)" style="width:350px;height:350px;" />
+                    </div>
+                </div>
+            </div>
+    </div>
+   
+    </div>
+
+</section>
+
+
+@section Scripts {
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var str1 = "@Model.ActivityStartDate";
+            str1 = str1.replace("&#x4E0A;&#x5348; 12:00:00", "");
+            var str2 = "@Model.ActivityEndDate";
+            str2 = str2.replace("&#x4E0A;&#x5348; 12:00:00", "");
+            console.log(str1);
+            console.log(str2);
+            $('#txtDay').datepicker({
+                format: "yy-mm-dd",
+                minDate: new Date(str1),
+                maxDate: new Date(str2),
+
+            });
+        });
+
+        $.ajax({
+            type: "Get",
+            url: "@Url.Action("CalOrderNum", "Activity")",
+            data: { "id": $("#activityId").val() },
+            contentType: "application/json",
+            success: function (result) {
+
+                $('#NumCal').val(@Model.ActivityNumberLimit - result);
+            }, error: function (error) {
+                alert(error.responseText);
+            }
+        });
+
+    </script>
+
+
+}
