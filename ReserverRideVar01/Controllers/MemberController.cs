@@ -37,7 +37,8 @@ namespace ReserverRideVar01.Controllers
         {
             if (Mem.MemberPassword!=Mem.MemberPassword2)
             {
-                return RedirectToAction("register", "Member");
+                ViewBag.errorpwd = "兩次密碼輸入不同，請重新輸入";
+                return View();
             }
             else
             {
@@ -65,12 +66,12 @@ namespace ReserverRideVar01.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("login", "Member"); ;
             }
             Member mem = _db.Members.FirstOrDefault(m => m.MemberID == id);
             if (mem == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("login", "Member"); ;
             }
             return View(mem);
         }
@@ -91,7 +92,7 @@ namespace ReserverRideVar01.Controllers
                 mem.MemberModifyDate = DateTime.Now;
                 _db.SaveChanges();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("login","Member");
         }
 
 
