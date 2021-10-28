@@ -1,0 +1,136 @@
+﻿@model IEnumerable<ReserverRideVar01.Models.ActivityOrder>
+@{
+    ViewData["Title"] = "ViewCart";
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="~/css/style2.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="~/css/icomoon.css" rel="stylesheet" />
+    <link href="~/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <title>購物清單</title>
+
+</head>
+<div class="content">
+    <div class="container">
+        <h2 class="mb-5">購物清單</h2>
+        <div class="table-responsive custom-table-responsive">
+            <table class="table custom-table">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <label class="control control--checkbox">
+                                <input type="checkbox" class="js-check-all" />
+                            </label>
+                            <div class="control__indicator"></div>
+                        </th>
+                        <th style="font-size:150%">
+                            序號
+                        </th>
+                        <th style="font-size:150%">
+                            @Html.DisplayNameFor(model => model.Activity.ActivityName)
+                        </th>
+                        <th style="font-size:150%">
+                            @Html.DisplayNameFor(model => model.OrderName)
+                        </th>
+                        <th style="font-size:150%">
+                            @Html.DisplayNameFor(model => model.OrderPhone)
+                        </th>
+                        <th style="font-size:150%">
+                            @Html.DisplayNameFor(model => model.OrderCustom)
+                        </th>
+                        <th style="font-size:150%">
+                            @Html.DisplayNameFor(model => model.OrderTotalPrice)
+                        </th>
+                        <th>  </th>
+                        <th>  </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{ int pay = 0;
+                        int num = 0;
+                        foreach (var item in Model)
+                        {
+                            pay += item.OrderTotalPrice.Value;
+                            num++;
+                            <tr scope="row">
+                                <td scope="row">
+                                    <label class="control control--checkbox">
+                                        <input type="checkbox" />
+                                    </label>
+                                    <div class="control__indicator"></div>
+                                </td>
+                                <td>
+                                    @num
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Activity.ActivityName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderPhone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderCustom)
+                                </td>
+                                <td>
+                                    $ @Html.DisplayFor(modelItem => item.OrderTotalPrice)
+                                </td>
+                                <td>
+                                    <a asp-action="EditCart" asp-route-id="@item.OrderId"><img src="~/Images/edit.png" width="20" height="20" /></a>
+                                </td>
+                                <td>
+                                    <a asp-action="Delete" asp-route-id="@item.OrderId"><img src="~/Images/delete.png" width="20" height="20" /></a>
+                                </td>
+
+
+                            </tr>
+                            <tr class="spacer">
+                                <td colspan="100"></td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <hr />
+    <ul>
+        <li>
+            <label>應付金額:$ @pay</label>
+        </li>
+    </ul>
+    <div class="row">
+        <button class="btn btn-outline-primary">
+            @Html.ActionLink("繼續選購", "List")
+        </button>
+        <span style="width:10px">    </span>
+        <button class="btn btn-outline-primary">
+            @Html.ActionLink("結帳", "#")
+        </button>
+    </div>
+
+
+</div>
+@{
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js+bootstrap.min.js+main.js.pagespeed.jc.4Rw81gB1e3.js"></script>
+    <script>eval(mod_pagespeed_nlOrm8fJcI);</script>
+    <script>eval(mod_pagespeed_GX$iwZVxnF);</script>
+    <script>eval(mod_pagespeed_t9yB570jti);</script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"rayId":"6a3c572131eb3cd6","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.10.0","si":100}'></script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"rayId":"6a3c5720fe1c3cd6","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.10.0","si":100}'></script>
+}
