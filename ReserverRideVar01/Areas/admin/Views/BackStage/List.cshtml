@@ -110,15 +110,16 @@
                                                     @Html.DisplayFor(modelItem => item.MemberModifyDate)
                                                 </td>
                                                 <td>
-                                                    @Html.ActionLink("修改", "Edit", new { id = item.MemberID }) |
-                                                    @Html.ActionLink("刪除", "Delete", new { id = item.MemberID }, new { onclick = "return confirm('確定要刪除嗎?')" })
+                                                    @*@Html.ActionLink("修改", "Edit", new { id = item.MemberID }) |*@
+                                                    @*@Html.ActionLink("刪除", "Delete", new { id = item.MemberID }, new { onclick = "return confirm('確定要刪除嗎?')" })*@
+                                                    <a asp-action="Edit" asp-area="admin" asp-route-id="@item.MemberID"> <img src="~/Images/edit.png" alt="編輯" width="20" height="20" /></a>|
+                                                    <a asp-action="Delete" asp-area="admin" asp-route-id="@item.MemberID" onclick = "return confirm('確定要刪除嗎?')" > <img src="~/Images/delete.png" alt="刪除" width="20" height="20" /></a>
                                                 </td>
                                             </tr>
                                         }
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </div>
