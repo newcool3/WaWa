@@ -19,6 +19,9 @@
                     <div class="x_title">
                         <h2>修改活動</h2>
                         <div class="clearfix"></div>
+                        <div>
+                            <a asp-controller="Activity" asp-action="List" asp-area="admin">前往首頁</a>
+                        </div>
                     </div>
                     <div class="x_content">
                         <div class="row">
@@ -89,8 +92,8 @@
                                         <label asp-for="ActivityPhoto" class="control-label">活動照片</label>
                                         @if (Model.ActivityPhoto != null)
                                         {
-                                            <img src="data:image;base64,@Convert.ToBase64String(Model.ActivityPhoto)" width="200" , asp-for="ActivityPhoto" />}
-                                        <input asp-for="ActivityPhoto" class="pic-upload-input" type="file" />
+                                        <img src="data:image;base64,@Convert.ToBase64String(Model.ActivityPhoto)" width="200" id="photoview", asp-for="ActivityPhoto" />}
+                                        <input asp-for="ActivityPhoto" class="pic-upload-input" type="file" id="photoinput"/>
                                         <span asp-validation-for="ActivityPhoto" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
@@ -100,14 +103,10 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                        <input type="submit" value="修改" class="btn btn-primary" onclick="alter('確認修改活動資料?')" />
                                     </div>
                                 </form>
                             </div>
-                        </div>
-
-                        <div>
-                            <a asp-controller="Island" asp-action="List">Back to List</a>
                         </div>
                     </div>
                 </div>
@@ -119,7 +118,9 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
@@ -151,6 +152,7 @@
                 })
             }
         });
+
     </script>
 }
 

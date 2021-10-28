@@ -23,7 +23,7 @@ namespace ReserverRideVar01.Areas.admin.Controllers
 
         public IActionResult List(string txtKeyword)
         {
-            //var act = _db.Activities.Include(i => i.Island).ToList();
+            var act = _db.Activities.Include(i => i.Island).ToList();
 
             IEnumerable<Activity> activity = null;
 
@@ -42,7 +42,7 @@ namespace ReserverRideVar01.Areas.admin.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.minDate = DateTime.Today;
+            //ViewBag.minDate = DateTime.Today;
 
             return View();
         }
@@ -85,7 +85,9 @@ namespace ReserverRideVar01.Areas.admin.Controllers
 
                 _db.Activities.Add(act);
                 _db.SaveChanges();
+                
                 return RedirectToAction("List");
+                
             }
             catch (Exception ex)
             { 

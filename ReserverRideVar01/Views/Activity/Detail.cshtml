@@ -16,8 +16,6 @@
     }
 </div>
 <h1>  @Html.DisplayFor(model => model.ActivityName)</h1>
-
-
 <div>
 
     <div>
@@ -63,11 +61,11 @@
 </div>
 <hr />
 <div>
-    @*<a href="#" class="btn btn-primary" role="button">加入購物車</a>|*@
     <a asp-controller="Activity" asp-action="AddToCart" asp-route-id="@Model.ActivityId" role="button" style="background-color:aquamarine">加入購物車</a>
     <br />
-    <a asp-action="List">Back to List</a>
+    <a asp-action="List" asp-controller="Activity">前往首頁</a>
 </div>
+<hr />
 
 
 @section Scripts {

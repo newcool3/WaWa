@@ -133,4 +133,23 @@
     <script>eval(mod_pagespeed_t9yB570jti);</script>
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"rayId":"6a3c572131eb3cd6","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.10.0","si":100}'></script>
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"rayId":"6a3c5720fe1c3cd6","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.10.0","si":100}'></script>
+
+    @*<script type="text/javascript">
+        $(function(){
+            $('.js-check-all').on("click", function () {
+            if ($(this).prop('checked')) {
+                $('th input[type="checkbox"]').each(function () {
+                    $(this).prop('checked', true);
+                    $(this).closest('tr').addClass('active');
+                })
+            } else {
+                $('th input[type="checkbox"]').each(function () {
+                    $(this).prop('checked', false);
+                    $(this).closest('tr').removeClass('active');
+                })
+            }
+        });
+    </script>*@
+
+
 }

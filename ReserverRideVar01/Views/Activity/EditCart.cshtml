@@ -32,7 +32,7 @@
                 <span asp-validation-for="OrderTotalPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" asp-route-id="@Model.OrderId" />
+                <input type="submit" value="修改" class="btn btn-primary" asp-route-id="@Model.OrderId" />
             </div>
         </form>
 
@@ -42,7 +42,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script>
+<script>
 
     $("#OrderCustom").change(function () {
         var custom = $("#OrderCustom").val();
@@ -51,11 +51,7 @@
         $("input[id='OrderTotalPrice']").val(@Model.Activity.ActivityPrice* custom);
     });
 
-
-
-
-
-    </script>
+</script>
 }
 
 
