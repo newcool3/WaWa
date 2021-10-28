@@ -120,6 +120,10 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
     <script>
 
         $.ajax({
@@ -128,6 +132,22 @@
                 console.log(result)
                 result.forEach((i) => {
                     $("#island_select").append(`<option value="${i.islandId}">${i.islandName}<option>`)
+                })
+            }
+        });
+
+        $.ajax({
+            url: "/admin/Activity/IslandRead",
+            success: function (result) {
+                console.log(result)
+                result.forEach((i) => {
+                    option = `<option value="${i.islandId}"`
+                    if (@Model.IslandId == i.islandId)
+                  {
+                    option += `selected`;
+                     }
+                option += `>${i.islandName}</option>`
+                $("#island_select").append(option);
                 })
             }
         });

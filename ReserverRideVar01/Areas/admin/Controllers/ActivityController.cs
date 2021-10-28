@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace ReserverRideVar01.Areas.admin.Controllers
 {
     [Area("Admin")]
+    [Route("admin/[controller]/[action]")]
     public class ActivityController : Controller
     {
         MSITDbContext _db ;
@@ -59,31 +60,39 @@ namespace ReserverRideVar01.Areas.admin.Controllers
         [HttpPost]
         public IActionResult Create(ActivityViewModel actvm)
         {
-            Activity act = new Activity();
-            if (actvm.ActivityPhoto != null)
+            try
             {
-                using var fileStream = actvm.ActivityPhoto.OpenReadStream();
-                act.ActivityPhoto = new byte[(int)actvm.ActivityPhoto.Length];
-                fileStream.Read(act.ActivityPhoto, 0, (int)actvm.ActivityPhoto.Length);
+                Activity act = new Activity();
+                if (actvm.ActivityPhoto != null)
+                {
+                    using var fileStream = actvm.ActivityPhoto.OpenReadStream();
+                    act.ActivityPhoto = new byte[(int)actvm.ActivityPhoto.Length];
+                    fileStream.Read(act.ActivityPhoto, 0, (int)actvm.ActivityPhoto.Length);
+                }
+
+                act.ActivityName = actvm.ActivityName;
+                act.ActivityType = actvm.ActivityType;
+                act.ActivityStartDate = actvm.ActivityStartDate;
+                act.ActivityEndDate = actvm.ActivityEndDate;
+                act.ActivityTimezone = actvm.ActivityTimezone;
+                act.ActivityPrice = actvm.ActivityPrice;
+                act.ActivityLocation = actvm.ActivityLocation;
+                act.ActivityState = actvm.ActivityState;
+                act.ActivityNumberLimit = actvm.ActivityNumberLimit;
+                act.ActivityDeadline = actvm.ActivityDeadline;
+                act.ActivityDescription = actvm.ActivityDescription;
+                act.IslandId = actvm.IslandId;
+
+                _db.Activities.Add(act);
+                _db.SaveChanges();
+                return RedirectToAction("List");
             }
-
-            act.ActivityName = actvm.ActivityName;
-            act.ActivityType = actvm.ActivityType;
-            act.ActivityStartDate = actvm.ActivityStartDate;
-            act.ActivityEndDate = actvm.ActivityEndDate;
-            act.ActivityTimezone = actvm.ActivityTimezone;
-            act.ActivityPrice = actvm.ActivityPrice;
-            act.ActivityLocation = actvm.ActivityLocation;
-            act.ActivityState = actvm.ActivityState;
-            act.ActivityNumberLimit = actvm.ActivityNumberLimit;
-            act.ActivityDeadline = actvm.ActivityDeadline;
-            act.ActivityDescription = actvm.ActivityDescription;
-            act.IslandId = actvm.IslandId;
-
-            _db.Activities.Add(act);
-            _db.SaveChanges();
-
-            return RedirectToAction("List");
+            catch (Exception ex)
+            { 
+                return RedirectToAction("Create");
+            }
+           
+          
 
         }
 
