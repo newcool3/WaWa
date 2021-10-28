@@ -1,5 +1,6 @@
 ﻿@model ReserverRideVar01.Models.Member
 @using System.Text.Json;
+
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_ProductLayout.cshtml";
@@ -10,12 +11,28 @@
 
     string result = System.Text.Encoding.UTF8.GetString(sessionName);
     Member M = JsonSerializer.Deserialize<Member>(result);
-        
-    <ul list-style-type="none">
-        <li>"歡迎"@ViewBag.USERNAME"登入"</li>
-        <li>@Html.ActionLink("編輯個人資料", "Edit", "Member", new { id = M.MemberID})</li>
-        <li>@Html.ActionLink("登出", "Logout", "Member")</li>
 
+}
+@*<style>
+    ul li {
+        list-style-type: none;
+        display: inline;
+        width: 200px;
+        background-color: lightcyan;
+    }
+
+        ul li:hover {
+            background-color: blue;
+            cursor: pointer;
+        }
+</style>*@
+
+@{
+
+    <ul style="list-style-type: none">
+        <li>"歡迎"@ViewBag.USERNAME"登入"</li>
+        <li>@Html.ActionLink("編輯個人資料", "Edit", "Member", new { id = M.MemberID })</li>
+        <li>@Html.ActionLink("登出", "Logout", "Member")</li>
     </ul>
 }
 

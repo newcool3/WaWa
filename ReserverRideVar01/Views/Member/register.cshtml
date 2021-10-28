@@ -4,133 +4,124 @@
 }
 @*<!DOCTYPE html>
 
-<html lang="zh-Hant-TW">
-<head>*@
-    <meta charset="utf-8" />
-    <title>Form元素</title>
-    <style>
-        fieldset {
-            width: 500px;
-            margin: 15px;
-            border: 1px solid #acd6ff;
-            border-radius: 20px;
-        }
+    <html lang="zh-Hant-TW">
+    <head>*@
+<meta charset="utf-8" />
+<title>Form元素</title>
+<style>
+    fieldset {
+        width: 500px;
+        margin: 15px;
+        border: 1px solid #acd6ff;
+        border-radius: 20px;
+    }
 
-        legend {
-            color: #2894FF;
-            /*text-align:center;*/
-            margin-left: 50px;
-        }
+    legend {
+        color: #2894FF;
+        /*text-align:center;*/
+        margin-left: 50px;
+    }
 
-        .st1 {
-            width: 450px;
-            border-bottom: 3px dashed #E0E0E0;
-            margin: 20px;
-            padding-bottom: 10px;
-        }
+    .st1 {
+        width: 450px;
+        border-bottom: 3px dashed #E0E0E0;
+        margin: 20px;
+        padding-bottom: 10px;
+    }
 
-        .sub {
-            width: 450px;
-            margin: 20px;
-            text-align: center;
-        }
+    .sub {
+        width: 450px;
+        margin: 20px;
+        text-align: center;
+    }
 
-        .t1 {
-            width: 100px;
-            float: left;
-            text-align: right;
-        }
+    .t1 {
+        width: 100px;
+        float: left;
+        text-align: right;
+    }
 
-        em {
-            color: red;
-        }
-    </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    em {
+        font-size: 16px;
+        color: red;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/mvc/3.0/jquery.validate.unobtrusive.js" type="text/javascript"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @*</head>
-<body>*@
+    <body>*@
 
-    <form asp-action="register" id="form1" >
-        <fieldset>
-            <legend>個人資料<em>必填</em></legend>
-            <div class="st1">
-                <label class="t1">會員類型:</label>
-                <input type="radio" name="MemberType" value="一般會員" id="m1" /><label for="m1">一般會員</label>
-                <label>
-                    <input type="radio" name="MemberType" value="廠商" />廠商
-                </label>
-            </div>
-            <div class="st1">
-                <label for="account1" class="t1">姓名:</label>
-                <input type="text" id="account1" name="MemberName" autofocus placeholder="guest" autocomplete="off" size="10" />
-            </div>
-            <div class="st1">
-                <label class="t1">帳號:</label>
-                <input type="email" name="MemberEmail" placeholder="請輸入E-mail" id="email"/>
-            </div>
-            <div class="st1">
-                <label for="pwd1" class="t1">密碼:</label>
-                <input type="password" id="pwd1" name="MemberPassword" maxlength="10" onblur="checkpas1();" required />
-            </div>
-
-            <div class="st1">
-                <label for="pwd2" class="t1">確認密碼:</label>
-                <input type="password" id="pwd2" name="MemberPassword2" maxlength="10" onChange="checkpas();" required /><br />
-                <span class="tip" style="color: red;">兩次輸入的密碼不一致</span>
-            </div>
-
-            <div class="st1">
-                <label class="t1">生日:</label>
-                <input type="date" name="MemberBirthday" id="birth" />
-            </div>
-            <div class="st1">
-                <label class="t1">身分證字號:</label>
-                <input type="text" name="MemberNumberID" maxlength="10" pattern="[a-z,A-Z]{1}[1-2,8-9]{1}\d{8}" id="numberid"/>
-            </div>
-            <div class="st1">
-                <label class="t1">手機號碼:</label>
-                <input type="text" name="MemberPhone" maxlength="10" id="phone"/>
-            </div>
-        </fieldset>
-
-        <div class="sub">
-            <input type="submit" value="送出" onclick="checkpas2();" id="submit" />
-            <input type="reset" value="清除" />
+<form asp-action="register" id="form1">
+    <fieldset>
+        <legend>個人資料<em>必填</em></legend>
+        <div class="st1">
+            <label class="t1">會員類型:</label>
+            <input type="radio" name="MemberType" value="一般會員" id="m1" /><label for="m1">一般會員</label>
+            <label>
+                <input type="radio" name="MemberType" value="廠商" />廠商
+            </label>
+        </div>
+        <div class="st1">
+            <label for="account1" class="t1">姓名:</label>
+            <input type="text" id="account1" name="MemberName" autofocus placeholder="guest" autocomplete="off" size="10" />
+        </div>
+        <div class="st1">
+            <label class="t1">帳號:</label>
+            <input type="email" name="MemberEmail" placeholder="請輸入E-mail" id="email" />
+        </div>
+        <div class="st1">
+            <label for="pwd1" class="t1">密碼:</label>
+            <input type="password" id="pwd1" name="MemberPassword" maxlength="10" onblur="checkpas1();" required />
         </div>
 
-    </form>
-@*</body>
-</html>*@
-<script>
-    //$(function () {
-    //    $(".tip").hide();
-    //    function checkpas1() {//當第一個密碼框失去焦點時，觸發checkpas1事件
-    //        var pas1 = document.getElementById("pwd1").value;
-    //        var pas2 = document.getElementById("pwd2").value; //獲取兩個密碼框的值
-    //        if (pas1 != pas2 && pas2 != "")//此事件當兩個密碼不相等且第二個密碼是空的時候會顯示錯誤資訊
-    //            $(".tip").show();
-    //        else
-    //            $(".tip").hide();//若兩次輸入的密碼相等且都不為空時，不顯示錯誤資訊。
-    //    }
-    //    function checkpas() {//當第一個密碼框失去焦點時，觸發checkpas件
-    //        var pas1 = document.getElementById("pwd1").value;
-    //        var pas2 = document.getElementById("pwd2").value;//獲取兩個密碼框的值
-    //        if (pas1 != pas2) {
-    //            $(".tip").show();//當兩個密碼不相等時則顯示錯誤資訊
-    //        } else {
-    //            $(".tip").hide();
-    //        }
-    //    }
-    //    function checkpas2() {//點選提交按鈕時，觸發checkpas2事件，會進行彈框提醒以防無視錯誤資訊提交
-    //        var pas3 = document.getElementById("pwd1").value;
-    //        var pas4 = document.getElementById("pwd2").value;
-    //        if (pas3 != pas4) {
-    //            alert("兩次輸入的密碼不一致！");
-    //            return false;
-    //        }
-    //    }
-    //})
+        <div class="st1">
+            <label for="pwd2" class="t1">確認密碼:</label>
+            <input type="password" id="pwd2" name="MemberPassword2" maxlength="10" onChange="checkpas();" required /><br />
+            <span class="tip" style="color: red;">兩次輸入的密碼不一致</span>
+        </div>
 
+        <div class="st1">
+            <label class="t1">生日:</label>
+            <input type="date" name="MemberBirthday" id="birth" />
+        </div>
+        <div class="st1">
+            <label class="t1">身分證字號:</label>
+            <input type="text" name="MemberNumberID" maxlength="10" pattern="[a-z,A-Z]{1}[1-2,8-9]{1}\d{8}" id="numberid" />
+        </div>
+        <div class="st1">
+            <label class="t1">手機號碼:</label>
+            <input type="text" name="MemberPhone" maxlength="10" id="phone" />
+        </div>
+    </fieldset>
+
+    <div class="sub">
+        <input type="submit" class="btn btn-secondary" value="送出" onclick="checkpas2();" id="submit" />
+        <input type="reset" value="清除" />
+        <a href="#" id="registerDemo" class="btn btn-primary">註冊Demo</a>
+
+    </div>
+</form>
+@*</body>
+    </html>*@
+
+
+
+<script>
+
+    $("#registerDemo").click(function () {
+        $("#m1").click();
+        $("#account1").val("丹尼爾");
+        $("#email").val("Daniel@gmail.com");
+        $("#pwd1").val("Daniel");
+        $("#pwd2").val("Daniel");
+        $("#birth").val("1991-01-11");
+        $("#numberid").val("C123456789");
+        $("#phone").val("0911111111");
+        console.log(123);
+    });
 
     $(".tip").hide();
     function checkpas1() {//當第一個密碼框失去焦點時，觸發checkpas1事件
@@ -150,14 +141,39 @@
             $(".tip").hide();
         }
     }
-    function checkpas2() {//點選提交按鈕時，觸發checkpas2事件，會進行彈框提醒以防無視錯誤資訊提交
-        var pas3 = document.getElementById("pwd1").value;
-        var pas4 = document.getElementById("pwd2").value;
-        if (pas3 != pas4) {
-            alert("兩次輸入的密碼不一致！");
-            return false;
-        }
-    }
+    //function checkpas2() {//點選提交按鈕時，觸發checkpas2事件，會進行彈框提醒以防無視錯誤資訊提交
+    //    var pas1 = document.getElementById("pwd1").value;
+    //    var pas2 = document.getElementById("pwd2").value;
+    //    if (pas1 != pas2) {
+    //        alert("兩次輸入的密碼不一致！");
+    //        return false;
+    //    }
+    //    else {
+    //        alert("註冊成功!");
+    //    }
+    //}
+
+    //$("#submit").click(function () {
+    //    if ($("#pwd1").val() == $("#pwd2").val()) {
+    //        swal({
+    //            title: "註冊成功",
+    //            icon: "success",
+    //            button: "確定!",
+    //        }).then((result) => {
+    //            if (result.isConfirmed) { $("#form1").submit(); }
+    //        });
+    //    }
+    //    else {
+    //        swal({
+    //            title: "註冊失敗",
+    //            icon: "fail",
+    //            button: "請重新註冊!",
+    //        }).then((result) => {
+    //            if (result.isConfirmed) { $("#form1").submit(); }
+    //        });
+    //    }
+    //})
+
 
     //$("#submit").click(function () {
     //    if ($("#account1").val() == "") {
@@ -172,5 +188,15 @@
     //    } else {
     //        document.form1.submit();
     //    }
- 
+
 </script>
+
+
+
+@if (ViewBag.errorpwd != null)
+{
+    <script type="text/javascript">
+         var message = '@Html.Raw(ViewBag.errorpwd)';
+            alert(message);
+    </script>
+}
