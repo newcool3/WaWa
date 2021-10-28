@@ -89,8 +89,10 @@ namespace ReserverRideVar01.Migrations
                     b.Property<byte[]>("MemberPhoto")
                         .HasColumnType("varbinary");
 
-                    b.Property<int>("MemberType")
-                        .HasColumnType("int");
+                    b.Property<string>("MemberType")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Role")
                         .HasMaxLength(50)

@@ -1,0 +1,178 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+}
+
+@*<!DOCTYPE html>
+<html lang="en">
+<head>*@
+    @*<title>Login V2</title>
+    <meta charset="UTF-8">*@
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Login_Layout/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_Layout/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_Layout/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_Layout/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_Layout/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_Layout/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_Layout/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_Layout/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_Layout/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Login_Layout/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Login_Layout/css/main.css">
+    <!--===============================================================================================-->
+@*</head>*@
+@*<body>*@
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form action="@Url.Action("Login")" method="post" class="login100-form validate-form">
+                    <span class="login100-form-title p-b-26">
+                        歡迎
+                    </span>
+                    <span class="login100-form-title p-b-48">
+                        <i class="zmdi zmdi-font"></i>
+                    </span>
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+                        @*------------------------------------------------*@
+                        <input class="input100" type="text" name="txtAccount">
+                        <span class="focus-input100" data-placeholder="Email"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        @*------------------------------------------------*@
+                        <input class="input100" type="password" name="txtPassword">
+                        <span class="focus-input100" data-placeholder="Password"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            @*----------------------------------------*@
+                            <button class="login100-form-btn" type="submit">
+                                登入
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <span class="txt1">
+                            沒有帳號嗎?
+                        </span>
+
+                        <a class="txt2" href="/Member/register">
+                            註冊
+                        </a>
+                    </div>
+
+                    <div class="text-center">
+                        <span class="txt1">
+                            忘記密碼嗎?
+                        </span>
+                        <a href="/Member/Forget" class="txt2">點我</a>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dropDownSelect1"></div>
+    <script src="~/Login_Layout/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+
+    <!--===============================================================================================-->
+    <script src="~/Login_Layout/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_Layout/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_Layout/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Login_Layout/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_Layout/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_Layout/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Login_Layout/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_Layout/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Login_Layout/js/main.js"></script>
+
+@*</body>
+</html>*@
+
+@*<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <h1>登入系統</h1>
+    <script src="~/js/jquery.min.js"></script>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>輸入帳號(郵件)與密碼</h4>
+            <hr />
+            <form onclick="return false">
+                <div class="form-group">
+
+                    <div class="col-md-1">
+                        <label>帳號</label>
+                        @Html.TextBox("txtAccount", "",
+                            new { htmlAttributes = new { @class = "form-control" ,id="id"} })
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-1">
+                        <label>密碼</label>
+                        @Html.TextBox("txtPassword", "",
+                       new { htmlAttributes = new { @class = "form-control" }, id = "pwd", type = "password" })
+                        <i class="fa fa-eye" onclick="showhide()" id="eye" style="font-size:20px;line-height:36px;position:absolute;top:0;right:0"></i>
+                    </div>
+                </div>
+            </form>
+
+            <div class="form-group">
+                <div class="">
+                    <input type="submit" value="登入" class="btn btn-success"  />
+                </div>
+                <div class="">
+                    <a href="/Member/Forget" class="btn btn-primary" >忘記密碼</a>
+                </div>
+            </div>
+        </div>
+
+    }
+    <script type="text/javascript">
+        var eye = document.getElementById("eye");
+        var pwd = document.getElementById("pwd");
+
+        function showhide() {
+
+            if (pwd.type == "password") {
+                pwd.type = "text";
+                eye.className = 'fa fa-eye-slash'
+            } else {
+                pwd.type = "password";
+                eye.className = 'fa fa-eye'
+            }
+        }
+
+    </script>*@
