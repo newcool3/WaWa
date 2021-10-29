@@ -24,22 +24,22 @@
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <div class="form-group">
                                         <label asp-for="MemberName" class="control-label"></label>
-                                        <input asp-for="MemberName" class="form-control" />
+                                        <input asp-for="MemberName" class="form-control" id="account1" />
                                         <span asp-validation-for="MemberName" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="MemberEmail" class="control-label"></label>
-                                        <input asp-for="MemberEmail" class="form-control" />
+                                        <input asp-for="MemberEmail" class="form-control" id="email" />
                                         <span asp-validation-for="MemberEmail" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="MemberPhone" class="control-label"></label>
-                                        <input asp-for="MemberPhone" class="form-control" />
+                                        <input asp-for="MemberPhone" class="form-control" id="phone" />
                                         <span asp-validation-for="MemberPhone" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="MemberPassword" class="control-label"></label>
-                                        <input asp-for="MemberPassword" class="form-control" />
+                                        <input asp-for="MemberPassword" class="form-control" id="pwd" />
                                         <span asp-validation-for="MemberPassword" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
@@ -49,45 +49,25 @@
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="MemberBirthday" class="control-label"></label>
-                                        <input asp-for="MemberBirthday" class="form-control" />
+                                        <input asp-for="MemberBirthday" type="date" class="form-control" id="birth" />
                                         <span asp-validation-for="MemberBirthday" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="MemberNumberID" class="control-label"></label>
-                                        <input asp-for="MemberNumberID" class="form-control" />
+                                        <input asp-for="MemberNumberID" class="form-control" id="numberId" />
                                         <span asp-validation-for="MemberNumberID" class="text-danger"></span>
                                     </div>
-                                    @*<div class="form-group">
-            <label asp-for="MemberEnable" class="control-label"></label>
-            <input asp-for="MemberEnable" class="form-control" />
-            <span asp-validation-for="MemberEnable" class="text-danger"></span>
-        </div>*@
-                                    @*<div class="form-group">
-            <label asp-for="MemberPhoto" class="control-label"></label>
-            <input asp-for="MemberPhoto" class="form-control" />
-            <span asp-validation-for="MemberPhoto" class="text-danger"></span>
-        </div>*@
                                     <div class="form-group">
                                         <label asp-for="MemberType" class="control-label"></label>
-                                        <input asp-for="MemberType" class="form-control" />
+                                        <input asp-for="MemberType" class="form-control" id="type" />
                                         <span asp-validation-for="MemberType" class="text-danger"></span>
                                     </div>
-                                    @*<div class="form-group">
-            <label asp-for="MemberCreateDate" class="control-label"></label>
-            <input asp-for="MemberCreateDate" class="form-control" />
-            <span asp-validation-for="MemberCreateDate" class="text-danger"></span>
-        </div>*@
-                                    @*<div class="form-group">
-            <label asp-for="MemberModifyDate" class="control-label"></label>
-            <input asp-for="MemberModifyDate" class="form-control" />
-            <span asp-validation-for="MemberModifyDate" class="text-danger"></span>
-        </div>*@
                                     <div class="form-group">
-                                        <input type="submit" value="Create" class="btn btn-primary" />
+                                        <input type="submit" value="註冊" class="btn btn-success" />
+                                        <input type="button" value="Demo註冊" id="registerDemo" />
                                     </div>
-
                                     <div>
-                                        <a asp-action="Admin/Index">Back to List</a>
+                                        <a asp-action="List" type="button" class="btn btn-primary">回到列表</a>
                                     </div>
                                 </form>
                             </div>
@@ -104,7 +84,20 @@
 
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+<script>
+    $("#registerDemo").click(function () {
+        $("#type").val("一般會員");
+        $("#account1").val("托尼");
+        $("#email").val("Tony@gmail.com");
+        $("#pwd").val("Tony");
+        $("#birth").val("1991-01-09");
+        $("#numberId").val("C222222222");
+        $("#phone").val("0922555666");
+    });
+</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -52,8 +52,8 @@ namespace ReserverRideVar01.ViewModel
         [Column(TypeName = "nvarchar")]
         public string MemberPassword2
         {
-            get { return this._member.MemberPassword; }
-            set { this._member.MemberPassword = value; }
+            get;
+            set;
         }
 
         [Required]//不能空值
