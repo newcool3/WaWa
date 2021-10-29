@@ -1,0 +1,131 @@
+﻿@model IEnumerable<ReserverRideVar01.Models.Member>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+
+}
+    <div class="right_col" role="main">
+        <div class="" >
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Admin panel</h3>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12" >
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h1>會員資料一覽表</h1>
+                            <p>
+                                <a asp-action="register">註冊新的會員</a>
+                            </p>
+                            @using (Html.BeginForm())
+                            {
+                                <p>
+                                    關鍵字
+                                    <input type="text" name="txtQuery" />
+                                    <input type="submit" value="查詢" />
+                                </p>
+                            }
+
+                            <div style="overflow-x:auto">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberName)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberEmail)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberPhone)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberPassword)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberAddress)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberBirthday)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberNumberID)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberEnable)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberType)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberCreateDate)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.MemberModifyDate)
+                                            </th>
+                                            <th>
+                                                修改|刪除
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberEmail)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberPhone)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberPassword)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberAddress)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberBirthday)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberNumberID)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberEnable)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberType)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberCreateDate)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberModifyDate)
+                                                </td>
+                                                <td>
+                                                    @*@Html.ActionLink("修改", "Edit", new { id = item.MemberID }) |*@
+                                                    @*@Html.ActionLink("刪除", "Delete", new { id = item.MemberID }, new { onclick = "return confirm('確定要刪除嗎?')" })*@
+                                                    <a asp-action="Edit" asp-area="admin" asp-route-id="@item.MemberID"> <img src="~/Images/edit.png" alt="編輯" width="20" height="20" /></a>|
+                                                    <a asp-action="Delete" asp-area="admin" asp-route-id="@item.MemberID" onclick = "return confirm('確定要刪除嗎?')" > <img src="~/Images/delete.png" alt="刪除" width="20" height="20" /></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+                        

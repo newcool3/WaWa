@@ -26,33 +26,32 @@ namespace ReserverRideVar01.Controllers
             _db = db;
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Login(CLoginViewModel model)
-        {
-            Member mem = _db.Members.FirstOrDefault(
-               c => c.MemberEmail.Equals(model.txtAccount) && c.MemberPassword.Equals(model.txtPassword));
+        //public IActionResult Login()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public IActionResult Login(CLoginViewModel model)
+        //{
+        //    Member mem = _db.Members.FirstOrDefault(
+        //       c => c.MemberEmail.Equals(model.txtAccount) && c.MemberPassword.Equals(model.txtPassword));
 
-            if (mem != null && mem.MemberPassword.Equals(model.txtPassword))
-            {
-                string json = JsonSerializer.Serialize(mem);
-                HttpContext.Session.SetString(Dictionary.SK_LOGIN_USER, json);
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
+        //    if (mem != null && mem.MemberPassword.Equals(model.txtPassword))
+        //    {
+        //        string json = JsonSerializer.Serialize(mem);
+        //        HttpContext.Session.SetString(Dictionary.SK_LOGIN_USER, json);
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View();
+        //}
 
         public IActionResult Index()
         {
-
-            if (!HttpContext.Session.Keys.Contains(Dictionary.SK_LOGIN_USER))
-                return RedirectToAction("Login");
-            string json = HttpContext.Session.GetString(Dictionary.SK_LOGIN_USER);
-            Member user = JsonSerializer.Deserialize<Member>(json);
-            ViewBag.USERNAME = user.MemberName;
+            //if (!HttpContext.Session.Keys.Contains(Dictionary.SK_LOGIN_USER))
+            //    return RedirectToAction("Login");
+            //string json = HttpContext.Session.GetString(Dictionary.SK_LOGIN_USER);
+            //Member user = JsonSerializer.Deserialize<Member>(json);
+            //ViewBag.USERNAME = user.MemberName;
             return View();
         }
 
