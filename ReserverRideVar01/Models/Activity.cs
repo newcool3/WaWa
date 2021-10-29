@@ -8,10 +8,10 @@ namespace ReserverRideVar01.Models
 {
     public partial class Activity
     {
-        //public Activity()
-        //{
-        //    ActivityOrders = new HashSet<ActivityOrder>();
-        //}
+        public Activity()
+        {
+            ActivityOrders = new HashSet<ActivityOrder>();
+        }
         public int ActivityId { get; set; }
         [Display(Name = "活動名稱")]
         [Required(ErrorMessage = "請填寫活動名稱")]
